@@ -7,21 +7,20 @@ public class Obstacle : MonoBehaviour {
     public float speedDown = 5f;
     public float speedUp = 1f;
 
-    Vector3 dir = Vector3.down;
+    private Vector3 _dir = Vector3.down;
 	
 	// Update is called once per frame
-	void Update () {
-
+	private void Update () 
+    {
         if (transform.position.y >= 25f)
             Destroy(gameObject);
-
         else if(transform.position.y <= 4.5f)
-            {
-                dir = Vector3.up;
-                speedDown = 3f;
-            }
+        {
+            _dir = Vector3.up;
+            speedDown = 3f;
+        }
 
-        transform.Translate(dir * Time.deltaTime * speedDown, Space.World);	
+        transform.Translate(_dir * (Time.deltaTime * speedDown), Space.World);	
 	}
 
     private void OnCollisionEnter2D(Collision2D col)

@@ -5,25 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class AuidoMenuManager : MonoBehaviour {
 
-    static bool AudioBegin = false;
-    AudioSource music;
-    void Awake()
+    private static bool _audioBegin = false;
+    private AudioSource _music;
+    private void Awake()
     {
-        music = GetComponent<AudioSource>();
+        _music = GetComponent<AudioSource>();
 
-        if (!AudioBegin)
+        if (!_audioBegin)
         {
-            music.Play();
+            _music.Play();
             DontDestroyOnLoad(gameObject);
-            AudioBegin = true;
+            _audioBegin = true;
         }
     }
-    void Update()
+    private void Update()
     {
         if (SceneManager.GetActiveScene().name != "Shop" && SceneManager.GetActiveScene().name != "MainMenu")
         {
-            music.Stop();
-            AudioBegin = false;
+            _music.Stop();
+            _audioBegin = false;
         }
     }
 }

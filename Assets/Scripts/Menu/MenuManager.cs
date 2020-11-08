@@ -10,14 +10,13 @@ public class MenuManager : MonoBehaviour
     public Sprite nmSprite;
     public Sprite mSprite;
     public GameObject[] menuCharacters;
-
     public GameObject[] themes;
 
-    Image image;
-    Animator anim;
-    bool goPlay;
-    bool goShop;
-    float timer;
+    private Image _image;
+    private Animator _anim;
+    private bool _goPlay;
+    private bool _goShop;
+    private float _timer;
 
     private void Awake()
     {
@@ -40,30 +39,30 @@ public class MenuManager : MonoBehaviour
         }
 
         //ставим перса в главном меню
-        Vector3 newPos = new Vector3(-1.9f, -4.11f, 0f);
+        var newPos = new Vector3(-1.9f, -4.11f, 0f);
         Instantiate(menuCharacters[PlayerPrefs.GetInt("CurrentChar")], newPos, Quaternion.identity);
     }
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
-        image = muteButton.GetComponent<Image>();
-        goPlay = false;
+        _anim = GetComponent<Animator>();
+        _image = muteButton.GetComponent<Image>();
+        _goPlay = false;
         ChangeSprites();
     }
 
     public void PlayGame()
     {
-        goPlay = true;
-        timer = Time.time + 0.3f;
-        anim.SetTrigger("Play");
+        _goPlay = true;
+        _timer = Time.time + 0.3f;
+        _anim.SetTrigger("Play");
     }
 
     public void GoShop()
     {
-        goShop = true;
-        timer = Time.time + 0.3f;
-        anim.SetTrigger("Play");
+        _goShop = true;
+        _timer = Time.time + 0.3f;
+        _anim.SetTrigger("Play");
     }
 
     public void Quit()
@@ -71,9 +70,9 @@ public class MenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    void Update()
+    private void Update()
     {
-        if (goPlay && Time.time > timer)
+        if (_goPlay && Time.time > _timer)
         {
             switch(PlayerPrefs.GetInt("CurrentTheme"))
             {
@@ -91,7 +90,7 @@ public class MenuManager : MonoBehaviour
             }
         }
 
-        if (goShop && Time.time > timer)
+        if (_goShop && Time.time > _timer)
             SceneManager.LoadScene("Shop");
     }
 
@@ -104,16 +103,10 @@ public class MenuManager : MonoBehaviour
 
     public void ChangeSprites()
     {
-        if (GameManager.isntMute == true)
-            image.sprite = nmSprite;
-
+        if (GameManager.isntMute)
+            _image.sprite = nmSprite;
         else
-            image.sprite = mSprite;
-    }
-
-    public void RateUs()
-    {
-        Application.OpenURL("market://details?id=com.AlbusFeles.SheepMustSurvive/");
+            _image.sprite = mSprite;
     }
 
     void FirstStart()

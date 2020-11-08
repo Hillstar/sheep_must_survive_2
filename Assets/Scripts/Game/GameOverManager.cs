@@ -11,29 +11,23 @@ public class GameOverManager : MonoBehaviour {
     public Button retryBut;
     public Button goMenuBut;
 
-    Animator anim;
-    bool goMenu = false;
-    bool retry = false;
-    float timeToGo;
-    bool stopAddScore = false; // чтобы добавил 1 раз
-    bool requestIntAd = false; // тк сцена загружается заново, его не надо менять
+    private Animator _anim;
+    private bool _goMenu = false;
+    private bool _retry = false;
+    private float _timeToGo;
 
-    void Awake()
+    private void Awake()
     {
         // Set up the reference.
-        anim = GetComponent<Animator>();
+        _anim = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
-	void Update () {
-        if (GameManager.gameCounter == 4 && requestIntAd == false) // вызывать за одну игру до показа рекламы
-        {
-            requestIntAd = true;
-        }
-
+	private void Update () 
+    {
         if(!GameManager.isPlayerAlive) // передалть как в ферст май
         {
-            anim.SetTrigger("GameOver");
+            _anim.SetTrigger("GameOver");
 
             retryBut.gameObject.SetActive(true);
             goMenuBut.gameObject.SetActive(true);
@@ -42,24 +36,12 @@ public class GameOverManager : MonoBehaviour {
             {
                 GameManager.gameCounter = 0;
             }
-
-            if(!stopAddScore)
-            {
-                audioS.Play();
-                SetNewHighscore();
-                GameManager.gameCounter++; // для рекламы
-
-                if (GameManager.score > 0)
-                    AddCoins(GameManager.score);// добавили к коинам за новых овец
-
-                stopAddScore = true;
-            }   
         }
 
-        if(goMenu && Time.time >= timeToGo)
+        if(_goMenu && Time.time >= _timeToGo)
             SceneManager.LoadScene("MainMenu");
 
-        if (retry && Time.time >= timeToGo)
+        if(_retry && Time.time >= _timeToGo)
         {
             switch (PlayerPrefs.GetInt("CurrentTheme"))
             {
@@ -80,16 +62,16 @@ public class GameOverManager : MonoBehaviour {
 
     public void PlayAgain()
     {
-        anim.SetTrigger("FadeScreen");
-        retry = true;
-        timeToGo = Time.time + 0.3f;
+        _anim.SetTrigger("FadeScreen");
+        _retry = true;
+        _timeToGo = Time.time + 0.3f;
     }
 
     public void GoMainMenu()
     {
-        anim.SetTrigger("FadeScreen");
-        goMenu = true;
-        timeToGo = Time.time + 0.3f;
+        _anim.SetTrigger("FadeScreen");
+        _goMenu = true;
+        _timeToGo = Time.time + 0.3f;
     }
 
     void SetNewHighscore()

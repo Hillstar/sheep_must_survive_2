@@ -8,7 +8,8 @@ public class TotalCoinsText : MonoBehaviour {
     public Text totalCoins;
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () 
+	{
 
         totalCoins.text = "" + PlayerPrefs.GetInt("Coins");
 	}

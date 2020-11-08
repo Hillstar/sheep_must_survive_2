@@ -10,9 +10,9 @@ public class MoveAsterioid : MonoBehaviour {
     public bool ifNotMenu = false;
 	
 	// Update is called once per frame
-	void Update () {
-
-        transform.Translate(transform.up * speed * Time.deltaTime, Space.World);
+	private void Update () 
+    {
+        transform.Translate(transform.up * (speed * Time.deltaTime), Space.World);
 	}
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -23,7 +23,6 @@ public class MoveAsterioid : MonoBehaviour {
             Destroy(gameObject);
             GameManager.isPlayerAlive = false;
         }
-
         else if (col.gameObject.CompareTag("Floor"))
         {
             Instantiate(explosion, transform.position + Vector3.down * explOffset, Quaternion.identity);
@@ -34,13 +33,15 @@ public class MoveAsterioid : MonoBehaviour {
 
     void DontDestroyParticles()
     {
-        Transform PE = transform.Find("Asteroid Trail");
-        PE.GetComponent<ParticleSystem>().Stop();
-        PE.gameObject.transform.parent = null;
+        var pe = transform.Find("Asteroid Trail");
+        pe.GetComponent<ParticleSystem>().Stop();
+        pe.gameObject.transform.parent = null;
+        
         if (ifNotMenu)
-            PE.transform.localScale = new Vector3(1f, 1f, 1f);
+            pe.transform.localScale = new Vector3(1f, 1f, 1f);
         else
-            PE.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
-        Destroy(PE.gameObject, 1.5f); // if particles live for at most 5 secs
+            pe.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+        
+        Destroy(pe.gameObject, 1.5f); // if particles live for at most 5 secs
     }
 }

@@ -5,28 +5,27 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
 
     public GameObject[] spawners;
-    public GameObject Obstacle;
-
+    public GameObject obstacle;
     public float spawnDelay = 2f;
 
-    float timeToSpawn;
-
-    int CurrentSpawner;
+    private float _timeToSpawn;
+    private int _currentSpawner;
 
 	// Use this for initialization
-	void Start () {
+	private void Start () 
+	{
 
-        timeToSpawn = Time.time + spawnDelay + 2;
+        _timeToSpawn = Time.time + spawnDelay + 2;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-        if(Time.time >= timeToSpawn)
+	private void Update () 
+	{
+		if(Time.time >= _timeToSpawn)
         {
-            CurrentSpawner = Random.Range(0, spawners.Length);
-            Instantiate(Obstacle, spawners[CurrentSpawner].transform.position, Quaternion.identity);
-            timeToSpawn = Time.time + spawnDelay;
+            _currentSpawner = Random.Range(0, spawners.Length);
+            Instantiate(obstacle, spawners[_currentSpawner].transform.position, Quaternion.identity);
+            _timeToSpawn = Time.time + spawnDelay;
         }
 	}
 }

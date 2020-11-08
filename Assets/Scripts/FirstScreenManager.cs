@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class FirstScreenManager : MonoBehaviour {
 
-    float timer;
-    float mainTimer;
-    bool goMenu = false;
-    Animator anim;
+    private float _timer;
+    private float _mainTimer;
+    private bool _goMenu = false;
+    private Animator _anim;
 
     private void Awake()
     {
@@ -17,26 +16,27 @@ public class FirstScreenManager : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
-
-        anim = GetComponent<Animator>();
-        mainTimer = Time.time + 1.5f;
+    private void Start ()
+    {
+        _anim = GetComponent<Animator>();
+        _mainTimer = Time.time + 1.5f;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update ()
+    {
 
-        if (goMenu && Time.time >= timer)
+        if (_goMenu && Time.time >= _timer)
             SceneManager.LoadScene("MainMenu");
 
-        else if ((Time.time >= mainTimer || Input.touchCount > 0) && !goMenu)
+        else if ((Time.time >= _mainTimer || Input.touchCount > 0) && !_goMenu)
             GoMainMenu();
 	}
 
     public void GoMainMenu()
     {
-        anim.SetTrigger("GoMenu");
-        goMenu = true;
-        timer = Time.time + 0.4f;
+        _anim.SetTrigger("GoMenu");
+        _goMenu = true;
+        _timer = Time.time + 0.4f;
     }
 }

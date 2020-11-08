@@ -4,36 +4,36 @@ using UnityEngine;
 
 public class SpawnSheeps : MonoBehaviour {
 
-    public GameObject Sheep;
+    public GameObject sheep;
     public float spawnDelay = 3f;
 
-    Transform player;
-    float timeToSpawn;
+    private Transform _player;
+    private float _timeToSpawn;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
         SpawnSheep();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Time.time >= timeToSpawn && !GameManager.hereSheep)
+        if (Time.time >= _timeToSpawn && !GameManager.hereSheep)
             SpawnSheep();
     }
 
     void SpawnSheep()
     {
-        float newXPos = Random.Range(-26f, 26f);
+        var newXPos = Random.Range(-26f, 26f);
 
-        if(newXPos > player.position.x + 10f || newXPos < player.position.x - 10f) //если рядом, то не спавнить
+        if(newXPos > _player.position.x + 10f || newXPos < _player.position.x - 10f) //если рядом, то не спавнить
         {
-            Vector3 newPos = new Vector3(newXPos, transform.position.y, transform.position.z);
-            Instantiate(Sheep, newPos, Quaternion.identity);
+            var newPos = new Vector3(newXPos, transform.position.y, transform.position.z);
+            Instantiate(sheep, newPos, Quaternion.identity);
             GameManager.hereSheep = true;
-            timeToSpawn = Time.time + spawnDelay;
+            _timeToSpawn = Time.time + spawnDelay;
         }
     }
 }

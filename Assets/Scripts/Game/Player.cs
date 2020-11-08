@@ -8,44 +8,44 @@ public class Player : MonoBehaviour {
     public float speed = 3f;
     public float movement = 1f;
 
-    private SpriteRenderer sprite;
+    private SpriteRenderer _sprite;
+    
+#if UNITY_ANDROID
     private float screenWidth;
-
     private bool touchLock = false; // чтобы считывать только одно касание
+# endif
 
     private void Start()
     {
+#if UNITY_ANDROID
         screenWidth = Screen.width;
-        sprite = GetComponent<SpriteRenderer>();
+# endif
+        _sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
-    void Update () {
+    private void Update () {
 
         if ((transform.position.x >= 27f && movement > 0) || (transform.position.x <= -29.5f && movement < 0))
             movement *= -1;
 
 #if UNITY_EDITOR || UNITY_STANDALONE
-
-            //for PC
-            /*
-            movement = Input.GetAxis("Horizontal");
+        
+        movement = Input.GetAxis("Horizontal");
 
             if (movement != 0)
             {
                 if (movement < 0)
-                    sprite.flipX = true;
-
+                    _sprite.flipX = true;
                 else
-                    sprite.flipX = false;
+                    _sprite.flipX = false;
 
                 anim.SetBool("IsRunning", true);
             }
-
             else
                 anim.SetBool("IsRunning", false);
-                */
-
+            
+            /* // OLD MOVE CONTROL
             if (Input.GetMouseButtonDown(0))
             movement *=-1;
         
@@ -56,14 +56,13 @@ public class Player : MonoBehaviour {
                 sprite.flipX = false;
 
             anim.SetBool("IsRunning", true);
+            */ //~OLD MOVE CONTROL
 
 #elif UNITY_ANDROID
-
         anim.SetBool("IsRunning", true);
 
         if(Input.touchCount == 0)
             touchLock = false;
-
         else if (Input.touchCount > 0 && touchLock == false)
         {
             movement *=-1;
@@ -72,7 +71,6 @@ public class Player : MonoBehaviour {
 
         if (movement < 0)
                 sprite.flipX = true;
-
             else
                 sprite.flipX = false;
         
@@ -84,7 +82,6 @@ public class Player : MonoBehaviour {
                 sprite.flipX = false;
                 movement = 1f;
             }
-
             else if (Input.GetTouch(0).position.x < screenWidth / 2)
             {
                 sprite.flipX = true;
@@ -93,7 +90,6 @@ public class Player : MonoBehaviour {
 
             anim.SetBool("IsRunning", true);
         }
-
         else
         {
             movement = 0f;

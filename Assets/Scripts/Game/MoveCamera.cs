@@ -12,7 +12,8 @@ public class MoveCamera : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    private void Update () 
+    {
 
         if (target != null && transform.position != target.transform.position)
         {

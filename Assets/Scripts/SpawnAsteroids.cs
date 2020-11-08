@@ -13,50 +13,48 @@ public class SpawnAsteroids : MonoBehaviour {
     public float minLength = -8f;
     public bool ifMainMenu = false;
     
-    float timeToSpawn;
-    float spawnRotation;
-    Vector3 spawnPosition;
+    private float _timeToSpawn;
+    private float _spawnRotation;
+    private Vector3 _spawnPosition;
 
 	// Use this for initialization
-	void Start () {
+	private void Start () 
+    {
         if (!ifMainMenu)
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         else
             player = null;
 
-        timeToSpawn = Time.time + delay + 1f;
+        _timeToSpawn = Time.time + delay + 1f;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-        if(!ifMainMenu && Time.time >= timeToSpawn && GameManager.isPlayerAlive)
+	private void Update () 
+    {
+        if(!ifMainMenu && Time.time >= _timeToSpawn && GameManager.isPlayerAlive)
         {
-            spawnRotation = Random.Range(minAngle, maxAngle);
+            _spawnRotation = Random.Range(minAngle, maxAngle);
 
             if(player.movement > 0)
-                spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(-0.8f, maxLength), -29.5f, 29.5f), transform.position.y, transform.position.z);
+                _spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(-0.8f, maxLength), -29.5f, 29.5f), transform.position.y, transform.position.z);
             else
-                spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(minLength, 0.8f), -29.5f, 29.5f), transform.position.y, transform.position.z);
+                _spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(minLength, 0.8f), -29.5f, 29.5f), transform.position.y, transform.position.z);
 
-            GameObject aster = Instantiate(asteroid, spawnPosition, transform.rotation);
+            var aster = Instantiate(asteroid, _spawnPosition, transform.rotation);
+            aster.transform.Rotate(0, 0, _spawnRotation);
 
-            aster.transform.Rotate(0, 0, spawnRotation);
-
-            timeToSpawn = Time.time + delay;
+            _timeToSpawn = Time.time + delay;
         }
 
-        else if (ifMainMenu && Time.time >= timeToSpawn)
+        else if (ifMainMenu && Time.time >= _timeToSpawn)
         {
-            spawnRotation = Random.Range(minAngle, maxAngle);
-
-            spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(minLength, maxLength), -29.5f, 29.5f), transform.position.y, transform.position.z);
+            _spawnRotation = Random.Range(minAngle, maxAngle);
+            _spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(minLength, maxLength), -29.5f, 29.5f), transform.position.y, transform.position.z);
            
-            GameObject aster = Instantiate(asteroid, spawnPosition, transform.rotation);
+            var aster = Instantiate(asteroid, _spawnPosition, transform.rotation);
+            aster.transform.Rotate(0, 0, _spawnRotation);
 
-            aster.transform.Rotate(0, 0, spawnRotation);
-
-            timeToSpawn = Time.time + delay;
+            _timeToSpawn = Time.time + delay;
         }
 	}
 }

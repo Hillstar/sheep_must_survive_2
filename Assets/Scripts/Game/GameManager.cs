@@ -13,14 +13,14 @@ public class GameManager : MonoBehaviour {
     public GameObject[] characters;
 
     // Use this for initialization
-    void Awake () {
+    private void Awake () {
 
         isPlayerAlive = true;
         score = 0;
         hereSheep = false;
         AudioListener.volume = isntMute ? 1 : 0;
 
-        Vector3 startPos = new Vector3(-14f, -4.12f, 0f);
+        var startPos = new Vector3(-14f, -4.12f, 0f);
         Instantiate(characters[PlayerPrefs.GetInt("CurrentChar")], startPos, Quaternion.identity);
     }
 }

@@ -4,18 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class NewHSText : MonoBehaviour {
-
-    Animator anim;
+    
+    private Animator _anim;
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
+        _anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update () {
-
+    private void Update () 
+    {
         if (!GameManager.isPlayerAlive && GameManager.score > PlayerPrefs.GetInt("HighScore"))
-            anim.SetTrigger("NewHS");
+            _anim.SetTrigger("NewHS");
 	}
 }
