@@ -355,7 +355,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &95150678
 AudioSource:
@@ -1668,7 +1668,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &520620383
 Rigidbody2D:
@@ -2677,8 +2677,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2017731673}
-  GameOverScoreText: {fileID: 1003558747}
-  GameOverTopText: {fileID: 1221210852}
+  gameOverScoreText: {fileID: 1003558747}
+  gameOverTopText: {fileID: 1221210852}
 --- !u!1 &887328528
 GameObject:
   m_ObjectHideFlags: 0
@@ -4045,7 +4045,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f34b7df7a6eec3478458a41fee10b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sheep: {fileID: 1423274335198632, guid: b506a05c3c3c8eb4dbfc993702f16751, type: 3}
+  sheep: {fileID: 1423274335198632, guid: b506a05c3c3c8eb4dbfc993702f16751, type: 3}
   spawnDelay: 3
 --- !u!4 &1812070626
 Transform:
@@ -4207,7 +4207,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1989922175
 GameObject:
@@ -4781,3 +4781,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2078357765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2078357767}
+  - component: {fileID: 2078357766}
+  m_Layer: 0
+  m_Name: Asteroid Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2078357766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078357765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e41ec7bd1c39d4385afc52aba31bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asteroid: {fileID: 1701030096364230, guid: 3d1440f58517d1d4e8e09de5d09a6bbe, type: 3}
+  player: {fileID: 0}
+  delay: 0.635
+  maxAngle: 215
+  minAngle: 155
+  maxLength: 7
+  minLength: -7
+  ifMainMenu: 0
+  spawnerHeight: 10
+--- !u!4 &2078357767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078357765}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.9, y: 10.23, z: 0}
+  m_LocalScale: {x: 7, y: 7, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

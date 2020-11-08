@@ -12,6 +12,7 @@ public class SpawnAsteroids : MonoBehaviour {
     public float maxLength = 8f;
     public float minLength = -8f;
     public bool ifMainMenu = false;
+    public float spawnerHeight = 10f;
     
     private float _timeToSpawn;
     private float _spawnRotation;
@@ -31,6 +32,9 @@ public class SpawnAsteroids : MonoBehaviour {
 	// Update is called once per frame
 	private void Update () 
     {
+        if(!GameManager.isPlayerAlive)
+            return;
+        transform.position = new Vector3(player.transform.position.x, spawnerHeight, transform.position.z);
         if(!ifMainMenu && Time.time >= _timeToSpawn && GameManager.isPlayerAlive)
         {
             _spawnRotation = Random.Range(minAngle, maxAngle);
