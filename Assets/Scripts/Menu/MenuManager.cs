@@ -38,7 +38,7 @@ public class MenuManager : MonoBehaviour
                 break;
         }
 
-        //ставим перса в главном меню
+        // ставим перса в главном меню
         var newPos = new Vector3(-1.9f, -4.11f, 0f);
         Instantiate(menuCharacters[PlayerPrefs.GetInt("CurrentChar")], newPos, Quaternion.identity);
     }
@@ -109,9 +109,9 @@ public class MenuManager : MonoBehaviour
             _image.sprite = mSprite;
     }
 
-    void FirstStart()
+    private void FirstStart()
     {
-        //убрать знаки ! в ифах для сброса статов
+        // убрать знаки ! в цифрах для сброса статов
         if(!PlayerPrefs.HasKey("HighScore"))
         {
             PlayerPrefs.SetInt("HighScore", 0);

@@ -4,24 +4,24 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ShopManager : MonoBehaviour {
-
-    public Color ButSel;
-    public Color ButNotSel;
+public class ShopManager : MonoBehaviour 
+{
+    public Color butSel;
+    public Color butNotSel;
 
     public Button[] charactersBut;
     public Button[] themeButton;
-    public Sprite[] sprites; //первые два Кейт(1 недоступен, 2 доступен) и тд
+    public Sprite[] sprites;             // первые два Кейт (1 недоступен, 2 доступен) и тд
     public Sprite[] themeSprites;
-    public GameObject[] SelectButTexts;
+    public GameObject[] selectButTexts;
 
     public GameObject[] themes;
 
-    Image image;
-    Animator anim;
-    bool goMenu = false;
-    float timeToGo;
-    GameObject currentShopTheme;
+    private Image _image;
+    private Animator _anim;
+    private bool _goMenu = false;
+    private float _timeToGo;
+    private GameObject _currentShopTheme;
 
     private void Awake()
     {
@@ -29,9 +29,9 @@ public class ShopManager : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Start () {
-
-        anim = GetComponent<Animator>();
+    private void Start () 
+    {
+        _anim = GetComponent<Animator>();
         StartSprites();
 
         switch(PlayerPrefs.GetInt("CurrentChar"))
@@ -51,17 +51,18 @@ public class ShopManager : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () 
+    {
             
-        if (goMenu && Time.time >= timeToGo)
+        if (_goMenu && Time.time >= _timeToGo)
             SceneManager.LoadScene("MainMenu");
     }
 
     public void GoMainMenu()
     {
-        anim.SetTrigger("GoMenu");
-        goMenu = true;
-        timeToGo = Time.time + 0.3f;
+        _anim.SetTrigger("GoMenu");
+        _goMenu = true;
+        _timeToGo = Time.time + 0.3f;
     }
 
     public void SelectFarmer()
@@ -70,7 +71,7 @@ public class ShopManager : MonoBehaviour {
         SetButColor(2);
     }
 
-    public void SelectKate() //стоимость 500
+    public void SelectKate() // стоимость 500
     {
         if (PlayerPrefs.GetInt("KateIsAv") == 1)
         {
@@ -88,7 +89,7 @@ public class ShopManager : MonoBehaviour {
         StartSprites();
     }
 
-    public void SelectMrF() //стоимость 1000
+    public void SelectMrF() // стоимость 1000
     {
         if (PlayerPrefs.GetInt("MrIsAv") == 1)
         {
@@ -108,21 +109,20 @@ public class ShopManager : MonoBehaviour {
 
     public void SelectFarm()
     {
-        if(PlayerPrefs.GetInt("CurrentTheme") != 0)
-        {
-            Destroy(currentShopTheme);
-            PlayerPrefs.SetInt("CurrentTheme", 0);
-            SetShopTheme();
-        }
+        if (PlayerPrefs.GetInt("CurrentTheme") == 0) return;
+        
+        Destroy(_currentShopTheme);
+        PlayerPrefs.SetInt("CurrentTheme", 0);
+        SetShopTheme();
     }
 
-    public void SelectCity() //стоимость 3000
+    public void SelectCity() // стоимость 3000
     {
         if(PlayerPrefs.GetInt("CityIsAv") == 1)
         {
             if(PlayerPrefs.GetInt("CurrentTheme") != 1)
             {
-                Destroy(currentShopTheme);
+                Destroy(_currentShopTheme);
                 PlayerPrefs.SetInt("CurrentTheme", 1);
                 SetShopTheme();
             }
@@ -132,20 +132,20 @@ public class ShopManager : MonoBehaviour {
         {
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - 3000);
             PlayerPrefs.SetInt("CityIsAv", 1);
-            Destroy(currentShopTheme);
+            Destroy(_currentShopTheme);
             PlayerPrefs.SetInt("CurrentTheme", 1);
             SetShopTheme();
         }
         StartSprites();
     }
 
-    public void SelectBeach() //стоимость 1500
+    public void SelectBeach() // стоимость 1500
     {
         if (PlayerPrefs.GetInt("BeachIsAv") == 1)
         {
             if (PlayerPrefs.GetInt("CurrentTheme") != 2)
             {
-                Destroy(currentShopTheme);
+                Destroy(_currentShopTheme);
                 PlayerPrefs.SetInt("CurrentTheme", 2);
                 SetShopTheme();
             }
@@ -155,27 +155,27 @@ public class ShopManager : MonoBehaviour {
         {
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") - 1500);
             PlayerPrefs.SetInt("BeachIsAv", 1);
-            Destroy(currentShopTheme);
+            Destroy(_currentShopTheme);
             PlayerPrefs.SetInt("CurrentTheme", 2);
             SetShopTheme();
         }
         StartSprites();
     }
 
-    void ChangeSprites(int isAvailable, int curChar) // мдааа, найс оффсеты
+    private void ChangeSprites(int isAvailable, int curChar) // мдааа, найс оффсеты
     {
-        image = charactersBut[curChar].GetComponent<Image>();
+        _image = charactersBut[curChar].GetComponent<Image>();
 
-        int spriteOffset = curChar; // смещение + 1 к номер перса, так по два спрайта на каждого
+        var spriteOffset = curChar; // смещение + 1 к номер перса, так по два спрайта на каждого
 
         if (isAvailable != 1)
-            image.sprite = sprites[curChar + spriteOffset];
+            _image.sprite = sprites[curChar + spriteOffset];
 
         else
-            image.sprite = sprites[curChar + 1 + spriteOffset];
+            _image.sprite = sprites[curChar + 1 + spriteOffset];
     }
 
-    void StartSprites() // как ты мог такое написать вообще, эта функция показывает доступность персов
+    private void StartSprites() // как ты мог такое написать вообще, эта функция показывает доступность персов
     {
         ChangeSprites(PlayerPrefs.GetInt("KateIsAv"), 0);
         ChangeSprites(PlayerPrefs.GetInt("MrIsAv"), 1);
@@ -183,49 +183,49 @@ public class ShopManager : MonoBehaviour {
         ChangeThemeSprites(PlayerPrefs.GetInt("BeachIsAv"), 1);
     }
 
-    void ChangeThemeSprites(int isAvailable, int curTheme) // мдааа, найс оффсеты
+    private void ChangeThemeSprites(int isAvailable, int curTheme) // мдааа, найс оффсеты
     {
-        image = themeButton[curTheme].GetComponent<Image>();
+        _image = themeButton[curTheme].GetComponent<Image>();
 
-        int spriteOffset = curTheme;
+        var spriteOffset = curTheme;
 
         if (isAvailable != 1)
-            image.sprite = themeSprites[curTheme + spriteOffset];
+            _image.sprite = themeSprites[curTheme + spriteOffset];
 
         else
         {
-            image.sprite = themeSprites[curTheme + 1 + spriteOffset];
-            SelectButTexts[curTheme].SetActive(true); // текст
+            _image.sprite = themeSprites[curTheme + 1 + spriteOffset];
+            selectButTexts[curTheme].SetActive(true); // текст
         }
     }
 
-    void SetShopTheme()
+    private void SetShopTheme()
     {
         switch (PlayerPrefs.GetInt("CurrentTheme"))
         {
             case 0:
-                currentShopTheme = Instantiate(themes[0], themes[0].transform.position, Quaternion.identity);
+                _currentShopTheme = Instantiate(themes[0], themes[0].transform.position, Quaternion.identity);
                 break;
 
             case 1:
-                currentShopTheme = Instantiate(themes[1], themes[1].transform.position, Quaternion.identity);
+                _currentShopTheme = Instantiate(themes[1], themes[1].transform.position, Quaternion.identity);
                 break;
 
             case 2:
-                currentShopTheme = Instantiate(themes[2], themes[2].transform.position, Quaternion.identity);
+                _currentShopTheme = Instantiate(themes[2], themes[2].transform.position, Quaternion.identity);
                 break;
         }
     }
 
-    void SetButColor(int selectedBut)
+    private void SetButColor(int selectedBut)
     {
-        for (int i = 0; i < charactersBut.Length; i++)
+        for (var i = 0; i < charactersBut.Length; i++)
         {
             if (i == selectedBut)
-                charactersBut[i].GetComponent<Image>().color = ButSel;
+                charactersBut[i].GetComponent<Image>().color = butSel;
 
             else
-                charactersBut[i].GetComponent<Image>().color = ButNotSel;
+                charactersBut[i].GetComponent<Image>().color = butNotSel;
         }
     }
 }

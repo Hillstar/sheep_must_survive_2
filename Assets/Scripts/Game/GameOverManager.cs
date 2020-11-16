@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameOverManager : MonoBehaviour {
-
+public class GameOverManager : MonoBehaviour 
+{
     public AudioSource audioS;
     public GameManager gm;
     public Button retryBut;
@@ -25,7 +25,7 @@ public class GameOverManager : MonoBehaviour {
 	// Update is called once per frame
 	private void Update () 
     {
-        if(!GameManager.isPlayerAlive) // передалть как в ферст май
+        if(!GameManager.isPlayerAlive) // переделать как в ферст май
         {
             _anim.SetTrigger("GameOver");
 
@@ -74,7 +74,7 @@ public class GameOverManager : MonoBehaviour {
         _timeToGo = Time.time + 0.3f;
     }
 
-    void SetNewHighscore()
+    private void SetNewHighscore()
     {
         if(GameManager.score > PlayerPrefs.GetInt("HighScore"))
         {
@@ -82,7 +82,7 @@ public class GameOverManager : MonoBehaviour {
         }
     }
 
-    void AddCoins(int score)
+    private void AddCoins(int score)
     {
         PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + score * 5); // не забудь исправить!!!
     }

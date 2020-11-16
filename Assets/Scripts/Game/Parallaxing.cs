@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Parallaxing : MonoBehaviour {
-
+public class Parallaxing : MonoBehaviour 
+{
     public Transform[] backgrounds;         // Array (list) of all the back- and foregrounds to be parallaxed
     public float smoothing = 1f;            // How smooth the parallax is going to be. Make sure to set this above 0
 
@@ -35,7 +35,6 @@ public class Parallaxing : MonoBehaviour {
     // Update is called once per frame
     private void FixedUpdate()
     {
-
         // for each background
         for (var i = 0; i < backgrounds.Length; i++)
         {
