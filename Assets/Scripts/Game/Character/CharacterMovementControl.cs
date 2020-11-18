@@ -1,15 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace Character
+namespace Game.Character
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class CharacterMovementControl : MonoBehaviour 
     {
         public Animator anim;
-        public float speed = 3f;
-        public float movement = 1f;
+        public float movementSpeed = 3f;
+        public float movementDir = 1f;
+        public float jumpForce = 100.0f;
 
         private SpriteRenderer _sprite;
-    
+        private Rigidbody2D _rigidbody;
+        private bool _isGrounded = true;
+
 #if UNITY_ANDROID
         private float screenWidth;
         private bool touchLock = false; // чтобы считывать только одно касание
@@ -21,21 +26,26 @@ namespace Character
             screenWidth = Screen.width;
 # endif
             _sprite = GetComponent<SpriteRenderer>();
+            _rigidbody = GetComponent<Rigidbody2D>();
         }
 
         // Update is called once per frame
         private void Update () 
         {
-            if ((transform.position.x >= 27f && movement > 0) || (transform.position.x <= -29.5f && movement < 0))
-                movement *= -1;
-
 #if UNITY_EDITOR || UNITY_STANDALONE
-        
-            movement = Input.GetAxis("Horizontal");
 
-            if (movement != 0)
+            if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
             {
-                if (movement < 0)
+                _rigidbody.AddForce(Vector2.up * jumpForce);
+                _isGrounded = false;
+                Debug.Log("JUMP");
+            }
+            
+            movementDir = Input.GetAxis("Horizontal");
+
+            if (movementDir != 0)
+            {
+                if (movementDir < 0)
                     _sprite.flipX = true;
                 else
                     _sprite.flipX = false;
@@ -97,9 +107,16 @@ namespace Character
             }
             */
 #endif
+            transform.Translate(Vector3.right * (movementDir * movementSpeed * Time.deltaTime));
             //Vector2 newVec = new Vector2(movement * speed * Time.deltaTime, transform.position.y);
-            transform.position = new Vector3(transform.position.x + movement * speed * Time.deltaTime, transform.position.y, transform.position.z);
+            //transform.position = new Vector3(transform.position.x + movementDir * movementSpeed * Time.deltaTime, transform.position.y, transform.position.z); // Было под андроид
             //transform.Translate(newVec, Space.World);
+        }
+
+        private void OnCollisionStay2D(Collision2D other)
+        {
+            if (other.collider.CompareTag("Floor"))
+                _isGrounded = true;
         }
     }
 }

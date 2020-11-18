@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 114233456548131522}
   - component: {fileID: 61146254856106512}
   - component: {fileID: -6355012939602482585}
-  m_Layer: 0
-  m_Name: Clouds (1)_4
+  m_Layer: 11
+  m_Name: Clouds_4
   m_TagString: Clouds
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

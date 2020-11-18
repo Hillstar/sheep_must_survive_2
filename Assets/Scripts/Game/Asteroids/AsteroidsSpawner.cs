@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Character;
+using Game.Character;
 using UnityEngine;
 
 public class AsteroidsSpawner : MonoBehaviour 
@@ -40,7 +40,7 @@ public class AsteroidsSpawner : MonoBehaviour
         {
             _spawnRotation = Random.Range(minAngle, maxAngle);
 
-            if(characterMovementControl.movement > 0)
+            if(characterMovementControl.movementDir > 0)
                 _spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(-0.8f, maxLength), -29.5f, 29.5f), transform.position.y, transform.position.z);
             else
                 _spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(minLength, 0.8f), -29.5f, 29.5f), transform.position.y, transform.position.z);

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Character
+namespace Game.Character
 {
     public class CharacterWeaponControl : MonoBehaviour
     {
@@ -9,8 +9,7 @@ namespace Character
         public GameObject gunPoint;
 
         private float _timeToShoot;
-        
-        
+
         // Update is called once per frame
         private void Update()
         {

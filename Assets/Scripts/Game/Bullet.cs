@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Character;
+using Game;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Cleaner")) return;
         
-        var otherHealth = other.GetComponent<CharacterHealth>();
+        var otherHealth = other.GetComponent<Health>();
         if(otherHealth)
             otherHealth.GetDamage(damage);
         
