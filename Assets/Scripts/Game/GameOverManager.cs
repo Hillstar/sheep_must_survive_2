@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,17 +26,12 @@ public class GameOverManager : MonoBehaviour
 	// Update is called once per frame
 	private void Update () 
     {
-        if(!GameManager.isPlayerAlive) // переделать как в ферст май
+        if(!GameManager.isPlayerAlive || GameManager.numSheep < 1) // переделать как в ферст май
         {
             _anim.SetTrigger("GameOver");
 
             retryBut.gameObject.SetActive(true);
             goMenuBut.gameObject.SetActive(true);
-
-            if(GameManager.gameCounter == 5)
-            {
-                GameManager.gameCounter = 0;
-            }
         }
 
         if(_goMenu && Time.time >= _timeToGo)

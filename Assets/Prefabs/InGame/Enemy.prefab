@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9173165393373389148}
   - component: {fileID: 9173165393373389149}
   - component: {fileID: 9173165393373389137}
-  - component: {fileID: 9173165393373389136}
-  m_Layer: 0
+  - component: {fileID: 1317924445047630173}
+  m_Layer: 12
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -145,9 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01308f81a0a67ad4e80ea72c18a25887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
-  targetTransform: {fileID: 0}
---- !u!114 &9173165393373389136
+  movementSpeed: 6
+--- !u!114 &1317924445047630173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,7 +155,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 9173165393373389146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32ef92c8ecd6d2f4388e21a55abfc5e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 13b1654c5c0736f4bba15fa73c63871b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 4
+  maxHealth: 1
+  sheepToDrop: {fileID: 1423274335198632, guid: b506a05c3c3c8eb4dbfc993702f16751, type: 3}

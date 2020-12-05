@@ -1,26 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GameManager : MonoBehaviour {
+namespace Game
+{
+    public class GameManager : MonoBehaviour 
+    {
+        public enum GameStates
+        {
+            WaveRunning,
+            WaveEnded,
+            Break,
+            GameOver
+        }
+    
+        public static int score;
+        public static int numSheep;
+        public static bool hereSheep;
+        public static bool isPlayerAlive;
+        public static bool isntMute = true;
+        public static GameObject[] sheeps;
+        public static GameStates gameState;
 
-    public static int score;
-    public static bool hereSheep;
-    public static bool isPlayerAlive;
-    public static bool isntMute = true;
-    public static int gameCounter = 0;
+        public GameObject[] characters;
+    
+        private void Awake ()
+        {
+            var sheeps = GameObject.FindGameObjectsWithTag("Sheep");
+            numSheep = sheeps.Length;
+            isPlayerAlive = true;
+            score = 0;
+            hereSheep = false;
+            AudioListener.volume = isntMute ? 1 : 0;
+            gameState = GameStates.WaveRunning;
 
-    public GameObject[] characters;
+            var startPos = new Vector3(-14f, -4.12f, 0f);
+            Instantiate(characters[PlayerPrefs.GetInt("CurrentChar")], startPos, Quaternion.identity);
+        }
 
-    // Use this for initialization
-    private void Awake () {
-
-        isPlayerAlive = true;
-        score = 0;
-        hereSheep = false;
-        AudioListener.volume = isntMute ? 1 : 0;
-
-        var startPos = new Vector3(-14f, -4.12f, 0f);
-        Instantiate(characters[PlayerPrefs.GetInt("CurrentChar")], startPos, Quaternion.identity);
+        private void Update()
+        {
+            sheeps = GameObject.FindGameObjectsWithTag("Sheep"); // TODO: Лучше переделать, может быть дорого
+            Debug.LogError(gameState);
+        }
     }
 }

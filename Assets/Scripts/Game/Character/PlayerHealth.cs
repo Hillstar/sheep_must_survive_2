@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Game
+namespace Game.Character
 {
-    public class Health : MonoBehaviour
+    public class PlayerHealth : MonoBehaviour
     {
         public float maxHealth = 10f;
 

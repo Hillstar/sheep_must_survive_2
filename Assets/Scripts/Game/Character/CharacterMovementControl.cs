@@ -28,8 +28,7 @@ namespace Game.Character
             _sprite = GetComponent<SpriteRenderer>();
             _rigidbody = GetComponent<Rigidbody2D>();
         }
-
-        // Update is called once per frame
+        
         private void Update () 
         {
 #if UNITY_EDITOR || UNITY_STANDALONE

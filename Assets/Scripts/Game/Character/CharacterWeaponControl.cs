@@ -9,8 +9,7 @@ namespace Game.Character
         public GameObject gunPoint;
 
         private float _timeToShoot;
-
-        // Update is called once per frame
+        
         private void Update()
         {
             // Shooting control

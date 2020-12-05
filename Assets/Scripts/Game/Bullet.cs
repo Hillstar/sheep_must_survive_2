@@ -1,29 +1,28 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Game;
+﻿using Game.Enemy;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Game
 {
-    public float damage = 1f;
-    public float moveSpeed = 20.0f;
-
-    // Update is called once per frame
-    private void Update()
+    public class Bullet : MonoBehaviour
     {
-        transform.
-        transform.Translate(Vector2.right * (moveSpeed * Time.deltaTime));
-    }
+        public float damage = 1f;
+        public float moveSpeed = 20.0f;
+    
+        private void Update()
+        {
+            transform.
+                transform.Translate(Vector2.right * (moveSpeed * Time.deltaTime));
+        }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Cleaner")) return;
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag("Cleaner")) return;
         
-        var otherHealth = other.GetComponent<Health>();
-        if(otherHealth)
-            otherHealth.GetDamage(damage);
+            var otherHealth = other.GetComponent<EnemyHealth>();
+            if(otherHealth)
+                otherHealth.GetDamage(damage);
         
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }
