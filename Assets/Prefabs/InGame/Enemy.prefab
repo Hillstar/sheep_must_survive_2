@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9173165393373389149}
   - component: {fileID: 9173165393373389137}
   - component: {fileID: 1317924445047630173}
+  - component: {fileID: 2123961246707646930}
   m_Layer: 12
   m_Name: Enemy
   m_TagString: Enemy
@@ -158,5 +159,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b1654c5c0736f4bba15fa73c63871b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 3
   sheepToDrop: {fileID: 1423274335198632, guid: b506a05c3c3c8eb4dbfc993702f16751, type: 3}
+  deathExplosion: {fileID: 1419947142867302, guid: fd4b0989b07bc344d8cb79bb2b6469ab, type: 3}
+--- !u!95 &2123961246707646930
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9173165393373389146}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 47ea269356fcfb64da207d82c6c79ec1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -4,8 +4,8 @@ namespace Game
 {
     public class WavesManager : MonoBehaviour
     {
-        public int numWaves = 2;
-        public float waveDelay = 1.0f;
+        public int numWaves = 3;
+        public float waveDelay = 2.0f;
 
         private float _timeNewWave;
         private int _curWaveNum;
@@ -27,7 +27,7 @@ namespace Game
             }
             else
             {
-                GameManager.gameState = GameManager.GameStates.GameOver;
+                GameManager.gameState = GameManager.GameStates.WaveEnded;
             }
         }
     }

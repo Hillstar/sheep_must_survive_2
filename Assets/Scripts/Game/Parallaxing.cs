@@ -1,57 +1,55 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Parallaxing : MonoBehaviour 
+namespace Game
 {
-    public Transform[] backgrounds;         // Array (list) of all the back- and foregrounds to be parallaxed
-    public float smoothing = 1f;            // How smooth the parallax is going to be. Make sure to set this above 0
-
-    private Transform _cam;                  // reference to the main cameras transform
-    private Vector3 _previousCamPos;         // the position of the camera in the previous frame
-    private float[] _offsetOnZ;         // The proportion of the camera's movement to move the backgrounds by
-
-    // Is called before Start(). Great for references.
-    private void Awake()
+    public class Parallaxing : MonoBehaviour 
     {
-        // set up camera the reference
-        _cam = Camera.main.transform;
-    }
+        public Transform[] backgrounds;         // Array (list) of all the back- and foregrounds to be parallaxed
+        public float smoothing = 1f;            // How smooth the parallax is going to be. Make sure to set this above 0
 
-    // Use this for initialization
-    private void Start()
-    {
-        // The previous frame had the current frame's camera position
-        _previousCamPos = _cam.position;
-
-        // asigning coresponding parallaxScales
-        _offsetOnZ = new float[backgrounds.Length];
-        for (var i = 0; i < backgrounds.Length; i++)
+        private Transform _cam;                 // reference to the main cameras transform
+        private Vector3 _previousCamPos;        // the position of the camera in the previous frame
+        private float[] _offsetOnZ;             // The proportion of the camera's movement to move the backgrounds by
+    
+        private void Awake()
         {
-            _offsetOnZ[i] = backgrounds[i].position.z * -1; // смещение на положительную ось
+            // set up camera the reference
+            _cam = Camera.main.transform;
         }
-    }
-
-    // Update is called once per frame
-    private void FixedUpdate()
-    {
-        // for each background
-        for (var i = 0; i < backgrounds.Length; i++)
+    
+        private void Start()
         {
-            // the parallax is the opposite of the camera movement because the previous frame multiplied by the scale
-            var parallax = (_previousCamPos.x - _cam.position.x) * _offsetOnZ[i];
+            // The previous frame had the current frame's camera position
+            _previousCamPos = _cam.position;
 
-            // set a target x position which is the current position plus the parallax
-            var backgroundTargetPosX = backgrounds[i].position.x + parallax;
-
-            // create a target position which is the background's current position with it's target x position
-            var backgroundTargetPos = new Vector3(backgroundTargetPosX, backgrounds[i].position.y, backgrounds[i].position.z);
-
-            // fade between current position and the target position using lerp
-            backgrounds[i].position = Vector3.Lerp(backgrounds[i].position, backgroundTargetPos, smoothing * Time.deltaTime);
+            // asigning coresponding parallaxScales
+            _offsetOnZ = new float[backgrounds.Length];
+            for (var i = 0; i < backgrounds.Length; i++)
+            {
+                _offsetOnZ[i] = backgrounds[i].position.z * -1; // смещение на положительную ось
+            }
         }
+    
+        private void FixedUpdate()
+        {
+            // for each background
+            for (var i = 0; i < backgrounds.Length; i++)
+            {
+                // the parallax is the opposite of the camera movement because the previous frame multiplied by the scale
+                var parallax = (_previousCamPos.x - _cam.position.x) * _offsetOnZ[i];
 
-        // set the previousCamPos to the camera's position at the end of the frame
-        _previousCamPos = _cam.position;
+                // set a target x position which is the current position plus the parallax
+                var backgroundTargetPosX = backgrounds[i].position.x + parallax;
+
+                // create a target position which is the background's current position with it's target x position
+                var backgroundTargetPos = new Vector3(backgroundTargetPosX, backgrounds[i].position.y, backgrounds[i].position.z);
+
+                // fade between current position and the target position using lerp
+                backgrounds[i].position = Vector3.Lerp(backgrounds[i].position, backgroundTargetPos, smoothing * Time.deltaTime);
+            }
+
+            // set the previousCamPos to the camera's position at the end of the frame
+            _previousCamPos = _cam.position;
+        }
     }
 }

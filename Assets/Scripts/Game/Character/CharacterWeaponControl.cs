@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game.Character
 {
@@ -9,7 +10,13 @@ namespace Game.Character
         public GameObject gunPoint;
 
         private float _timeToShoot;
-        
+        private AudioSource _audioSource;
+
+        private void Awake()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
+
         private void Update()
         {
             // Shooting control
@@ -17,6 +24,7 @@ namespace Game.Character
             {
                 Instantiate(bullet, gunPoint.transform.position, transform.rotation);
                 _timeToShoot = Time.time + shootingDelay;
+                _audioSource.Play();
             }
         
             // Weapon rotating

@@ -1,85 +1,83 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameOverManager : MonoBehaviour 
+namespace Game
 {
-    public AudioSource audioS;
-    public GameManager gm;
-    public Button retryBut;
-    public Button goMenuBut;
-
-    private Animator _anim;
-    private bool _goMenu = false;
-    private bool _retry = false;
-    private float _timeToGo;
-
-    private void Awake()
+    public class GameOverManager : MonoBehaviour 
     {
-        // Set up the reference.
-        _anim = GetComponent<Animator>();
-    }
-	
-	// Update is called once per frame
-	private void Update () 
-    {
-        if(!GameManager.isPlayerAlive || GameManager.numSheep < 1) // переделать как в ферст май
+        public AudioSource audioS;
+        public GameManager gm;
+        public Button retryBut;
+        public Button goMenuBut;
+
+        private Animator _anim;
+        private bool _goMenu = false;
+        private bool _retry = false;
+        private float _timeToGo;
+
+        private void Awake()
         {
-            _anim.SetTrigger("GameOver");
-
-            retryBut.gameObject.SetActive(true);
-            goMenuBut.gameObject.SetActive(true);
+            _anim = GetComponent<Animator>();
         }
-
-        if(_goMenu && Time.time >= _timeToGo)
-            SceneManager.LoadScene("MainMenu");
-
-        if(_retry && Time.time >= _timeToGo)
+    
+        private void Update () 
         {
-            switch (PlayerPrefs.GetInt("CurrentTheme"))
+            if(GameManager.gameState == GameManager.GameStates.GameOver)
             {
-                case 0:
-                    SceneManager.LoadScene("Game");
-                    break;
+                _anim.SetTrigger("GameOver");
 
-                case 1:
-                    SceneManager.LoadScene("Game_City");
-                    break;
+                retryBut.gameObject.SetActive(true);
+                goMenuBut.gameObject.SetActive(true);
+            }
 
-                case 2:
-                    SceneManager.LoadScene("Game_Beach");
-                    break;
+            if(_goMenu && Time.time >= _timeToGo)
+                SceneManager.LoadScene("MainMenu");
+
+            if(_retry && Time.time >= _timeToGo)
+            {
+                switch (PlayerPrefs.GetInt("CurrentTheme"))
+                {
+                    case 0:
+                        SceneManager.LoadScene("Game");
+                        break;
+
+                    case 1:
+                        SceneManager.LoadScene("Game_City");
+                        break;
+
+                    case 2:
+                        SceneManager.LoadScene("Game_Beach");
+                        break;
+                }
             }
         }
-    }
 
-    public void PlayAgain()
-    {
-        _anim.SetTrigger("FadeScreen");
-        _retry = true;
-        _timeToGo = Time.time + 0.3f;
-    }
-
-    public void GoMainMenu()
-    {
-        _anim.SetTrigger("FadeScreen");
-        _goMenu = true;
-        _timeToGo = Time.time + 0.3f;
-    }
-
-    private void SetNewHighscore()
-    {
-        if(GameManager.score > PlayerPrefs.GetInt("HighScore"))
+        public void PlayAgain()
         {
-            PlayerPrefs.SetInt("HighScore", GameManager.score);
+            _anim.SetTrigger("FadeScreen");
+            _retry = true;
+            _timeToGo = Time.time + 0.3f;
         }
-    }
 
-    private void AddCoins(int score)
-    {
-        PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + score * 5); // не забудь исправить!!!
+        public void GoMainMenu()
+        {
+            _anim.SetTrigger("FadeScreen");
+            _goMenu = true;
+            _timeToGo = Time.time + 0.3f;
+        }
+
+        private void SetNewHighscore()
+        {
+            if(GameManager.score > PlayerPrefs.GetInt("HighScore"))
+            {
+                PlayerPrefs.SetInt("HighScore", GameManager.score);
+            }
+        }
+
+        private void AddCoins(int score)
+        {
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + score * 5); // не забудь исправить!!!
+        }
     }
 }

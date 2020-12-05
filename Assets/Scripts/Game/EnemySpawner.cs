@@ -30,6 +30,10 @@ namespace Game
             {
                 _numOfSpawned = 0;
                 GameManager.gameState = GameManager.GameStates.WaveEnded;
+                
+                // Increase difficulty
+                numToSpawn += 2;
+                spawnDelay *= 0.7f;
             }
         }
     }
