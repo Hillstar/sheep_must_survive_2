@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Game
 {
     public class EnemySpawner : MonoBehaviour
     {
-        //public GameObject[] enemies; 
-        public GameObject enemy; // TODO: когда будет несколько видов врагов, переделать
+        public GameObject[] enemies;
         public int numToSpawn = 3;
         public float spawnDelay = 5.0f;
         public Transform[] spawnPoints;
@@ -21,7 +21,8 @@ namespace Game
                 {
                     var spawnPointIndex = Random.Range(0, spawnPoints.Length);
                     var currentSpawnPoint = spawnPoints[spawnPointIndex];
-                    Instantiate(enemy, currentSpawnPoint.transform.position, Quaternion.identity);
+                    var currentEnemy = Random.Range(0, enemies.Length);
+                    Instantiate(enemies[currentEnemy], currentSpawnPoint.transform.position, Quaternion.identity);
                     _timeToSpawn = Time.time + spawnDelay;
                     _numOfSpawned++;
                 }

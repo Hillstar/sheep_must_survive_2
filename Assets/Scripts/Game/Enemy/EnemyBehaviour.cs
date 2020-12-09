@@ -9,29 +9,37 @@ namespace Game.Enemy
         {
             ChaseSheep,
             ChasePlayer,
-            CarrySheep
+            CarrySheep,
+            Dead
         }
         
-        public float movementSpeed = 3.0f;
-        
-        private int _moveDir = 1;
         private States _curState;
         private Transform _targetTransform;
         private GameObject[] _exitPoints;
         private GameObject _playerObject;
         //private GameObject[] _sheepObjects;
-        private SpriteRenderer _spriteRenderer;
+        //private SpriteRenderer _spriteRenderer;
+        private Animator _animator;
+        private EnemyMovement _enemyMovement;
         
         private void Start()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            //_spriteRenderer = GetComponent<SpriteRenderer>();
             _playerObject = GameObject.FindGameObjectWithTag("Player");
             _exitPoints = GameObject.FindGameObjectsWithTag("EnemyExitPoint");
+            _animator = GetComponent<Animator>();
+            _enemyMovement = GetComponent<EnemyMovement>();
             //_sheepObjects = GameObject.FindGameObjectsWithTag("Sheep");
         }
         
         private void Update()
         {
+            if (_curState == States.Dead)
+            {
+                _enemyMovement.SetTarget(null);
+                return;
+            }
+            
             // Targeting
             if (!_targetTransform && _curState != States.CarrySheep)
             {
@@ -41,9 +49,8 @@ namespace Game.Enemy
                     SwitchState(States.ChasePlayer);
             }
 
-            // Movement 
-            _moveDir = _targetTransform.position.x > transform.position.x ? 1 : -1;
-            transform.Translate(Vector3.right * (_moveDir * movementSpeed * Time.deltaTime));
+            // Set target to move
+            _enemyMovement.SetTarget(_targetTransform);
         }
 
         private void SwitchState(States newState)
@@ -54,21 +61,15 @@ namespace Game.Enemy
             switch (_curState)
             {
                 case States.ChasePlayer:
-                    _spriteRenderer.color = Color.red;
                     _targetTransform = _playerObject.transform;
                     break;
                 
                 case States.ChaseSheep:
-                    _spriteRenderer.color = Color.yellow;
                     _targetTransform = FindNearestObject(GameManager.sheeps);
                     break;
                 
                 case States.CarrySheep:
-                    _spriteRenderer.color = Color.magenta;
                     _targetTransform = FindNearestObject(_exitPoints);
-                    break;
-                
-                default:
                     break;
             }
         }
@@ -93,7 +94,8 @@ namespace Game.Enemy
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Sheep") && _curState != States.CarrySheep)
+            if (other.gameObject.CompareTag("Sheep") 
+                && _curState != States.CarrySheep && _curState != States.Dead)
             {
                 SwitchState(States.CarrySheep);
                 Destroy(other.gameObject);
@@ -104,6 +106,11 @@ namespace Game.Enemy
         public bool IsCurrentStateCarrySheep()
         {
             return _curState == States.CarrySheep;
+        }
+
+        public void SetDeadState()
+        {
+            _curState = States.Dead;
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using UnityEditor;
 
 namespace Game.Enemy
 {
@@ -7,33 +9,74 @@ namespace Game.Enemy
         public float maxHealth = 5f;
         public GameObject sheepToDrop;
         public GameObject deathExplosion;
+        public GameObject criticalExplosion;
 
         private float _curHealth;
         private EnemyBehaviour _enemyBehaviour;
+        private SpriteRenderer _spriteRenderer;
         private Animator _animator;
-        
+        private bool _isDead = false;
+        private bool _criticalDeath = false;
+
         private void Start()
         {
             _curHealth = maxHealth;
             _enemyBehaviour = GetComponent<EnemyBehaviour>();
             _animator = GetComponent<Animator>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
         
         private void Update()
         {
-            if (_curHealth <= 0)
+            if (_curHealth <= 0 && !_isDead)
             {
-                if (_enemyBehaviour.IsCurrentStateCarrySheep())
-                    Instantiate(sheepToDrop, transform.position, Quaternion.identity);
-                Instantiate(deathExplosion, transform.position, Quaternion.identity);
-                Destroy(gameObject);
+                _animator.SetTrigger("EnemyDie");
+                var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
+                StartCoroutine(WaitBeforeDie(isEnemyCarryingSheep));
+                _isDead = true;                         // В каждом классе по состоянию, надо переделать 
+                _enemyBehaviour.SetDeadState();         //
             }
         }
 
-        public void GetDamage(float damage)
+        public void GetDamage(float damage, bool isCriticalShot)
         {
-            _animator.SetTrigger("EnemyGetDamage");
-            _curHealth -= damage;
+            if(isCriticalShot)
+            {
+                _criticalDeath = true;
+                var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
+                Die(isEnemyCarryingSheep);
+            }
+            else
+            {
+                //_animator.SetTrigger("EnemyGetDamage");
+                _curHealth -= damage;
+                _spriteRenderer.color = Color.red;
+                //EditorApplication.isPaused = true;
+                StartCoroutine(StopHitFlash());
+            }
+        }
+
+        private IEnumerator WaitBeforeDie(bool dropSheep)
+        {
+            yield return new WaitForSeconds(0.33f);
+            Die(dropSheep);
+        }
+        
+        private IEnumerator StopHitFlash()
+        {
+            yield return new WaitForSeconds(0.05f);
+            _spriteRenderer.color = Color.white;
+        }
+
+        private void Die(bool dropSheep)
+        {
+            if(dropSheep)
+                Instantiate(sheepToDrop, transform.position, Quaternion.identity);
+            if(_criticalDeath)
+                Instantiate(criticalExplosion, transform.position, Quaternion.identity);
+            else
+                Instantiate(deathExplosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 }

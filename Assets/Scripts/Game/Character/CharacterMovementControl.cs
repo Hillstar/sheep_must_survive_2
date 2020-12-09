@@ -8,12 +8,13 @@ namespace Game.Character
     {
         public Animator anim;
         public float movementSpeed = 3f;
-        public float movementDir = 1f;
+        public float movementDirHorizontal = 1f;
+        public float movementDirVertival = 1f;
         public float jumpForce = 100.0f;
 
         private SpriteRenderer _sprite;
         private Rigidbody2D _rigidbody;
-        private bool _isGrounded = true;
+        //private bool _isGrounded = true;
 
 #if UNITY_ANDROID
         private float screenWidth;
@@ -33,18 +34,21 @@ namespace Game.Character
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
 
-            if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+            /*
+            if(Input.GetKeyDown(KeyCode.Space) && _isGrounded)
             {
                 _rigidbody.AddForce(Vector2.up * jumpForce);
                 _isGrounded = false;
                 Debug.Log("JUMP");
             }
+            */
             
-            movementDir = Input.GetAxis("Horizontal");
+            movementDirHorizontal = Input.GetAxis("Horizontal");
+            movementDirVertival = Input.GetAxis("Vertical");
 
-            if (movementDir != 0)
+            if(movementDirHorizontal != 0 || movementDirVertival != 0)
             {
-                if (movementDir < 0)
+                if(movementDirHorizontal < 0)
                     _sprite.flipX = true;
                 else
                     _sprite.flipX = false;
@@ -106,16 +110,24 @@ namespace Game.Character
             }
             */
 #endif
-            transform.Translate(Vector3.right * (movementDir * movementSpeed * Time.deltaTime));
+            transform.Translate(Vector3.right * (movementDirHorizontal * movementSpeed * Time.deltaTime));
+            transform.Translate(Vector3.up * (movementDirVertival * movementSpeed * Time.deltaTime));
             //Vector2 newVec = new Vector2(movement * speed * Time.deltaTime, transform.position.y);
             //transform.position = new Vector3(transform.position.x + movementDir * movementSpeed * Time.deltaTime, transform.position.y, transform.position.z); // Было под андроид
             //transform.Translate(newVec, Space.World);
         }
 
-        private void OnCollisionStay2D(Collision2D other)
+        private void RevertMovement()
         {
-            if (other.collider.CompareTag("Floor"))
-                _isGrounded = true;
+            
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            //if(other.collider.CompareTag("Floor"))
+            //    _isGrounded = true;
+            
+            Debug.LogError(other.transform.name);
         }
     }
 }

@@ -1,23 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class CameraMovement : MonoBehaviour 
+namespace Game
 {
-    public GameObject target;
-
-    private void Start()
+    public class CameraMovement : MonoBehaviour 
     {
-        target = GameObject.FindGameObjectWithTag("Player");
-    }
+        public GameObject target;
+        public float cameraHeight = 3f;
 
-    // Update is called once per frame
-    private void Update () 
-    {
-
-        if (target != null && transform.position != target.transform.position)
+        private void Start()
         {
-            transform.position = new Vector3(target.transform.position.x, target.transform.position.y + 6f, transform.position.z);
+            target = GameObject.FindGameObjectWithTag("Player");
+        }
+        
+        private void Update () 
+        {
+            if(target != null && transform.position != target.transform.position)
+            {
+                transform.position = new Vector3(target.transform.position.x, target.transform.position.y + cameraHeight, transform.position.z);
+            }
         }
     }
 }

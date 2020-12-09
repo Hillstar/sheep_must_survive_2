@@ -41,7 +41,7 @@ public class AsteroidsSpawner : MonoBehaviour
         {
             _spawnRotation = Random.Range(minAngle, maxAngle);
 
-            if(characterMovementControl.movementDir > 0)
+            if(characterMovementControl.movementDirHorizontal > 0)
                 _spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(-0.8f, maxLength), -29.5f, 29.5f), transform.position.y, transform.position.z);
             else
                 _spawnPosition = new Vector3(Mathf.Clamp(transform.position.x + Random.Range(minLength, 0.8f), -29.5f, 29.5f), transform.position.y, transform.position.z);
