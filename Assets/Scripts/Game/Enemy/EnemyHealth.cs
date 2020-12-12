@@ -16,6 +16,7 @@ namespace Game.Enemy
         private EnemyBehaviour _enemyBehaviour;
         private SpriteRenderer _spriteRenderer;
         private Animator _animator;
+        private BoxCollider2D _collider;
         private bool _isDead = false;
         private bool _criticalDeath = false;
 
@@ -25,6 +26,7 @@ namespace Game.Enemy
             _enemyBehaviour = GetComponent<EnemyBehaviour>();
             _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _collider = GetComponent<BoxCollider2D>();
         }
         
         private void Update()
@@ -38,9 +40,10 @@ namespace Game.Enemy
                 _enemyBehaviour.SetDeadState();         //
                 _spriteRenderer.sprite = deadSprite;
                 EnemySpawner.deadEnemiesCounter++;
+                _collider.enabled = false;
                 Debug.LogError(EnemySpawner.deadEnemiesCounter);
             }
-            else if(_isDead && GameManager.gameState == GameManager.GameStates.Break)
+            else if(_isDead && GameManager.gameState == GameStates.Break)
             {
                 var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
                 Die(isEnemyCarryingSheep);

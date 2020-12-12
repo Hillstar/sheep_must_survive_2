@@ -27,8 +27,7 @@ public class ShopManager : MonoBehaviour
     {
         SetShopTheme();
     }
-
-    // Use this for initialization
+    
     private void Start () 
     {
         _anim = GetComponent<Animator>();
@@ -49,8 +48,7 @@ public class ShopManager : MonoBehaviour
                 break;
         }
     }
-	
-	// Update is called once per frame
+    
 	private void Update () 
     {
             

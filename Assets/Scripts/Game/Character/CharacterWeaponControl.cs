@@ -6,16 +6,26 @@ namespace Game.Character
     public class CharacterWeaponControl : MonoBehaviour
     {
         public float shootingDelay = 1.0f;
-        public Weapon weapon;
+        public GameObject pistolGameObject;
+        public GameObject shotgunGameObject;
+        
+        public Weapon curWeapon;
         
         private float _timeToShoot;
-        
+
+        private void Start()
+        {
+            pistolGameObject.SetActive(false);
+            shotgunGameObject.SetActive(false);
+            SelectWeapon(WeaponTypes.Pistol);
+        }
+
         private void Update()
         {
             // Shooting control
             if(Input.GetMouseButton(0) && Time.time >= _timeToShoot)
             {
-                weapon.Shoot();
+                curWeapon.Shoot();
                 _timeToShoot = Time.time + shootingDelay;
             }
         
@@ -25,9 +35,29 @@ namespace Game.Character
             var rotAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotAngle);
             if (rotAngle > 90f || rotAngle < -90f)
-                weapon.SetSpriteFlipY(true);
+                curWeapon.SetSpriteFlipY(true);
             else
-                weapon.SetSpriteFlipY(false);
+                curWeapon.SetSpriteFlipY(false);
+        }
+
+        public void SelectWeapon(WeaponTypes weapon)
+        {
+            if(curWeapon) curWeapon.gameObject.SetActive(false);
+            switch (weapon)
+            {
+                case WeaponTypes.Pistol:
+                    Debug.LogWarning("Selected Pistol");
+                    pistolGameObject.SetActive(true);
+                    curWeapon = pistolGameObject.GetComponent<Weapon>();
+                    break;
+                case WeaponTypes.Shotgun:
+                    Debug.LogWarning("Selected Shotgun");
+                    shotgunGameObject.SetActive(true);
+                    curWeapon = shotgunGameObject.GetComponent<Weapon>();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(weapon), weapon, null);
+            }
         }
     }
 }

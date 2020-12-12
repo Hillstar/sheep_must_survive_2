@@ -4,14 +4,6 @@ namespace Game
 {
     public class GameManager : MonoBehaviour 
     {
-        public enum GameStates
-        {
-            WaveRunning,
-            WaveEnded,
-            Break,
-            GameOver
-        }
-    
         public static int score;
         public static int numSheep;
         public static bool hereSheep;
@@ -32,8 +24,8 @@ namespace Game
             AudioListener.volume = isntMute ? 1 : 0;
             gameState = GameStates.WaveRunning;
 
-            var startPos = new Vector3(-14f, -4.12f, 0f);
-            Instantiate(characters[PlayerPrefs.GetInt("CurrentChar")], startPos, Quaternion.identity);
+            //var startPos = new Vector3(-14f, -4.12f, 0f);
+            //Instantiate(characters[PlayerPrefs.GetInt("CurrentChar")], startPos, Quaternion.identity);
         }
 
         private void Update()

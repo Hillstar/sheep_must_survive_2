@@ -23,7 +23,7 @@ namespace Game
     
         private void Update () 
         {
-            if(GameManager.gameState == GameManager.GameStates.GameOver)
+            if(GameManager.gameState == GameStates.GameOver)
             {
                 _anim.SetTrigger("GameOver");
 

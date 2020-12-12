@@ -25,7 +25,7 @@ namespace Game
         {
             if(_numOfSpawned < numToSpawn) 
             {
-                if(GameManager.gameState == GameManager.GameStates.WaveRunning && Time.time >= _timeToSpawn)
+                if(GameManager.gameState == GameStates.WaveRunning && Time.time >= _timeToSpawn)
                 {
                     var spawnPointIndex = Random.Range(0, spawnPoints.Length);
                     var currentSpawnPoint = spawnPoints[spawnPointIndex];
@@ -39,7 +39,7 @@ namespace Game
             {
                 _numOfSpawned = 0;
                 deadEnemiesCounter = 0;
-                GameManager.gameState = GameManager.GameStates.WaveEnded;
+                GameManager.gameState = GameStates.WaveEnded;
                 
                 // Increase difficulty
                 numToSpawn += 2;

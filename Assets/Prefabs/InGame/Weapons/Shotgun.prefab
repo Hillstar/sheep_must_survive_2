@@ -191,7 +191,7 @@ MonoBehaviour:
   bullet: {fileID: 2715407113674600017, guid: a5c1863fe3e1e884ea1913f381436bd6, type: 3}
   gunPoint: {fileID: 784830273186293869}
   gunSprite: {fileID: 6780036252314460690}
-  gunType: 0
+  gunType: 1
 --- !u!1 &6780036252314460690
 GameObject:
   m_ObjectHideFlags: 0
