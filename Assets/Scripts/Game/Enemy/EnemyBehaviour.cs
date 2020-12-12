@@ -5,15 +5,8 @@ namespace Game.Enemy
 {
     public class EnemyBehaviour : MonoBehaviour
     {
-        private enum States
-        {
-            ChaseSheep,
-            ChasePlayer,
-            CarrySheep,
-            Dead
-        }
+        public EnemyStates curState;
         
-        private States _curState;
         private Transform _targetTransform;
         private GameObject[] _exitPoints;
         private GameObject _playerObject;
@@ -29,47 +22,59 @@ namespace Game.Enemy
             _exitPoints = GameObject.FindGameObjectsWithTag("EnemyExitPoint");
             _animator = GetComponent<Animator>();
             _enemyMovement = GetComponent<EnemyMovement>();
+            SwitchState(EnemyStates.ChaseSheep);
             //_sheepObjects = GameObject.FindGameObjectsWithTag("Sheep");
         }
         
         private void Update()
         {
-            if (_curState == States.Dead)
+            if(curState == EnemyStates.Dead || curState == EnemyStates.Attacking)
             {
                 _enemyMovement.SetTarget(null);
                 return;
             }
             
             // Targeting
-            if (!_targetTransform && _curState != States.CarrySheep)
+            if(!_targetTransform && curState != EnemyStates.CarrySheep)
             {
                 if (GameManager.sheeps.Length > 0)
-                    SwitchState(States.ChaseSheep);
+                    SwitchState(EnemyStates.ChaseSheep);
                 else
-                    SwitchState(States.ChasePlayer);
+                    SwitchState(EnemyStates.ChasePlayer);
             }
 
             // Set target to move
             _enemyMovement.SetTarget(_targetTransform);
         }
 
-        private void SwitchState(States newState)
+        public void SwitchState(EnemyStates newState)
         {
-            _curState = newState;
+            curState = newState;
             
             // Finite-state machine
-            switch (_curState)
+            switch(curState)
             {
-                case States.ChasePlayer:
+                case EnemyStates.ChasePlayer:
+                    _animator.SetBool("Running", true);
                     _targetTransform = _playerObject.transform;
                     break;
                 
-                case States.ChaseSheep:
+                case EnemyStates.ChaseSheep:
+                    _animator.SetBool("Running", true);
                     _targetTransform = FindNearestObject(GameManager.sheeps);
                     break;
                 
-                case States.CarrySheep:
+                case EnemyStates.CarrySheep:
+                    _animator.SetBool("Running", true);
                     _targetTransform = FindNearestObject(_exitPoints);
+                    break;
+                
+                case EnemyStates.Attacking:
+                    _animator.SetBool("Running", false);
+                    break;
+                
+                case EnemyStates.Dead:
+                    _animator.SetBool("Running", false);
                     break;
             }
         }
@@ -83,7 +88,7 @@ namespace Game.Enemy
             foreach (var obj in objects)
             {
                 var distance = Mathf.Abs(obj.transform.position.x - position.x);
-                if (distance < minDistance)
+                if(distance < minDistance)
                 {
                     minDistance = distance;
                     nearestObject = obj.transform;
@@ -94,23 +99,13 @@ namespace Game.Enemy
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Sheep") 
-                && _curState != States.CarrySheep && _curState != States.Dead)
+            if(other.gameObject.CompareTag("Sheep") 
+                && curState != EnemyStates.CarrySheep && curState != EnemyStates.Dead)
             {
-                SwitchState(States.CarrySheep);
+                SwitchState(EnemyStates.CarrySheep);
                 Destroy(other.gameObject);
                 //Debug.LogError(_curState);
             }
-        }
-
-        public bool IsCurrentStateCarrySheep()
-        {
-            return _curState == States.CarrySheep;
-        }
-
-        public void SetDeadState()
-        {
-            _curState = States.Dead;
         }
     }
 }

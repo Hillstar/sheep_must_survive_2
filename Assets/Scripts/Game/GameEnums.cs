@@ -14,4 +14,13 @@
         BreakEnded,
         GameOver
     }
+    
+    public enum EnemyStates
+    {
+        ChaseSheep,
+        ChasePlayer,
+        Attacking,
+        CarrySheep,
+        Dead
+    }
 }

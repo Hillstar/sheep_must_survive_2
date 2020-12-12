@@ -2,11 +2,11 @@
 
 namespace Game.Character
 {
-    public class PlayerHealth : MonoBehaviour
+    public class CharacterHealth : MonoBehaviour
     {
         public float maxHealth = 10f;
 
-        private float _curHealth = 10f;
+        public float _curHealth = 10f;
         
         private void Start()
         {

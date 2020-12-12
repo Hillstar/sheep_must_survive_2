@@ -1,5 +1,79 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &678458860692689190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 557262065418918644}
+  - component: {fileID: 577459229971234568}
+  - component: {fileID: 8446492682392572547}
+  m_Layer: 0
+  m_Name: Attack Field
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &557262065418918644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678458860692689190}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1354488974057328256}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &577459229971234568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678458860692689190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5d62f6bc4e0cd479feff745cd7eac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  attackDelay: 1
+  enemyBehaviour: {fileID: 1591965851}
+  _target: {fileID: 0}
+--- !u!61 &8446492682392572547
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678458860692689190}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.03160101, y: -0.012820214}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.64185464, y: 0.34305763}
+  m_EdgeRadius: 0
 --- !u!1 &1354488974057328317
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,9 +88,9 @@ GameObject:
   - component: {fileID: 1591965854}
   - component: {fileID: 1591965851}
   - component: {fileID: 1591965852}
-  - component: {fileID: 4787433275549405120}
   - component: {fileID: -5991800569560495247}
   - component: {fileID: 5113998813582659054}
+  - component: {fileID: 4554499695179853899}
   m_Layer: 12
   m_Name: Flying eye
   m_TagString: Enemy
@@ -36,6 +110,7 @@ Transform:
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children:
   - {fileID: 6878513784319416724}
+  - {fileID: 557262065418918644}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -149,6 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01308f81a0a67ad4e80ea72c18a25887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  curState: 0
 --- !u!114 &1591965852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,19 +242,6 @@ MonoBehaviour:
   deathExplosion: {fileID: 1419947142867302, guid: 9a9557dd0d9cb8f4f8a9896fde6a2e0f, type: 3}
   criticalExplosion: {fileID: 1419947142867302, guid: fd4b0989b07bc344d8cb79bb2b6469ab, type: 3}
   deadSprite: {fileID: 1400002288684528572, guid: b9517addf15136e47a89337d912454b0, type: 3}
---- !u!114 &4787433275549405120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1354488974057328317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69258593eaa728949bf695a57032cf64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeedMax: 4
 --- !u!114 &-5991800569560495247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +275,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4554499695179853899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354488974057328317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d47322e1967ab5c43af7759e17dee1de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeedMax: 5
 --- !u!1 &6652709008411698772
 GameObject:
   m_ObjectHideFlags: 0

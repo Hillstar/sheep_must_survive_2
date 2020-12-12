@@ -27,20 +27,17 @@ namespace Game.Enemy
             if(!_targetTransform)
                 return;
             
-            if (_enemyBehaviour.IsCurrentStateCarrySheep())
+            if (_enemyBehaviour.curState == EnemyStates.CarrySheep)
                 movementSpeed = movementSpeedMax * _slowness;
             else
                 movementSpeed = movementSpeedMax;
             
             // Move
-            _moveDir = _targetTransform.position.x > transform.position.x ? 1 : -1;
-
             var moveVec = _targetTransform.position - transform.position;
             transform.Translate(moveVec.normalized * (movementSpeed * Time.deltaTime));
-            
-            //Move(_moveDir);
-            
+
             // Flip sprite
+            _moveDir = _targetTransform.position.x > transform.position.x ? 1 : -1;
             _spriteRenderer.flipX = _moveDir != 1;
         }
 
@@ -48,8 +45,5 @@ namespace Game.Enemy
         {
             _targetTransform = targetTransform;
         }
-
-        public virtual void Move(int dir)
-        {}
     }
 }

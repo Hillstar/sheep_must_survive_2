@@ -35,7 +35,7 @@ namespace Game
 
             if (!isPlayerAlive || numSheep < 1)
             {
-                gameState = GameStates.GameOver;
+                //gameState = GameStates.GameOver;
             }
         }
     }

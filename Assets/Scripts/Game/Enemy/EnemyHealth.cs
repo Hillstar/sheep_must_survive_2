@@ -17,7 +17,6 @@ namespace Game.Enemy
         private SpriteRenderer _spriteRenderer;
         private Animator _animator;
         private BoxCollider2D _collider;
-        private bool _isDead = false;
         private bool _criticalDeath = false;
 
         private void Start()
@@ -31,21 +30,20 @@ namespace Game.Enemy
         
         private void Update()
         {
-            if (_curHealth <= 0 && !_isDead)
+            if (_curHealth <= 0 && _enemyBehaviour.curState != EnemyStates.Dead)
             {
                 _animator.SetTrigger("EnemyDie");
                 //var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
                 //StartCoroutine(WaitBeforeDie(isEnemyCarryingSheep));
-                _isDead = true;                         // В каждом классе по состоянию, надо переделать 
-                _enemyBehaviour.SetDeadState();         //
+                _enemyBehaviour.SwitchState(EnemyStates.Dead);
                 _spriteRenderer.sprite = deadSprite;
                 EnemySpawner.deadEnemiesCounter++;
                 _collider.enabled = false;
                 Debug.LogError(EnemySpawner.deadEnemiesCounter);
             }
-            else if(_isDead && GameManager.gameState == GameStates.Break)
+            else if(_enemyBehaviour.curState == EnemyStates.Dead && GameManager.gameState == GameStates.Break)
             {
-                var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
+                var isEnemyCarryingSheep = _enemyBehaviour.curState == EnemyStates.CarrySheep;
                 Die(isEnemyCarryingSheep);
             }
         }
@@ -55,7 +53,7 @@ namespace Game.Enemy
             if(isCriticalShot)
             {
                 _criticalDeath = true;
-                var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
+                var isEnemyCarryingSheep = _enemyBehaviour.curState == EnemyStates.CarrySheep;
                 EnemySpawner.deadEnemiesCounter++;
                 Die(isEnemyCarryingSheep);
             }

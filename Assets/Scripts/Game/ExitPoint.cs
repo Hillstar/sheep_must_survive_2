@@ -9,7 +9,7 @@ public class ExitPoint : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().IsCurrentStateCarrySheep())
+        if (other.CompareTag("Enemy") && other.GetComponent<EnemyBehaviour>().curState == EnemyStates.CarrySheep)
         {
             Destroy(other.gameObject);
             GameManager.numSheep--;
