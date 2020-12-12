@@ -10,6 +10,7 @@ namespace Game.Enemy
         public GameObject sheepToDrop;
         public GameObject deathExplosion;
         public GameObject criticalExplosion;
+        public Sprite deadSprite;
 
         private float _curHealth;
         private EnemyBehaviour _enemyBehaviour;
@@ -31,10 +32,18 @@ namespace Game.Enemy
             if (_curHealth <= 0 && !_isDead)
             {
                 _animator.SetTrigger("EnemyDie");
-                var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
-                StartCoroutine(WaitBeforeDie(isEnemyCarryingSheep));
+                //var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
+                //StartCoroutine(WaitBeforeDie(isEnemyCarryingSheep));
                 _isDead = true;                         // В каждом классе по состоянию, надо переделать 
                 _enemyBehaviour.SetDeadState();         //
+                _spriteRenderer.sprite = deadSprite;
+                EnemySpawner.deadEnemiesCounter++;
+                Debug.LogError(EnemySpawner.deadEnemiesCounter);
+            }
+            else if(_isDead && GameManager.gameState == GameManager.GameStates.Break)
+            {
+                var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
+                Die(isEnemyCarryingSheep);
             }
         }
 
@@ -44,6 +53,7 @@ namespace Game.Enemy
             {
                 _criticalDeath = true;
                 var isEnemyCarryingSheep = _enemyBehaviour.IsCurrentStateCarrySheep();
+                EnemySpawner.deadEnemiesCounter++;
                 Die(isEnemyCarryingSheep);
             }
             else
@@ -72,6 +82,7 @@ namespace Game.Enemy
         {
             if(dropSheep)
                 Instantiate(sheepToDrop, transform.position, Quaternion.identity);
+            
             if(_criticalDeath)
                 Instantiate(criticalExplosion, transform.position, Quaternion.identity);
             else

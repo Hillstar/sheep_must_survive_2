@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
     public class EnemySpawner : MonoBehaviour
     {
+        public static int deadEnemiesCounter;
         public GameObject[] enemies;
         public int numToSpawn = 3;
         public float spawnDelay = 5.0f;
@@ -12,7 +15,12 @@ namespace Game
     
         private float _timeToSpawn;
         private int _numOfSpawned;
-    
+
+        private void Start()
+        {
+            deadEnemiesCounter = 0;
+        }
+
         private void Update()
         {
             if(_numOfSpawned < numToSpawn) 
@@ -27,9 +35,10 @@ namespace Game
                     _numOfSpawned++;
                 }
             }
-            else // если волна закончилась
+            else if(deadEnemiesCounter == numToSpawn) // если волна закончилась
             {
                 _numOfSpawned = 0;
+                deadEnemiesCounter = 0;
                 GameManager.gameState = GameManager.GameStates.WaveEnded;
                 
                 // Increase difficulty

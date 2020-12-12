@@ -10,11 +10,9 @@ namespace Game.Character
         public float movementSpeed = 3f;
         public float movementDirHorizontal = 1f;
         public float movementDirVertival = 1f;
-        public float jumpForce = 100.0f;
 
         private SpriteRenderer _sprite;
         private Rigidbody2D _rigidbody;
-        //private bool _isGrounded = true;
 
 #if UNITY_ANDROID
         private float screenWidth;
@@ -33,16 +31,6 @@ namespace Game.Character
         private void Update () 
         {
 #if UNITY_EDITOR || UNITY_STANDALONE
-
-            /*
-            if(Input.GetKeyDown(KeyCode.Space) && _isGrounded)
-            {
-                _rigidbody.AddForce(Vector2.up * jumpForce);
-                _isGrounded = false;
-                Debug.Log("JUMP");
-            }
-            */
-            
             movementDirHorizontal = Input.GetAxis("Horizontal");
             movementDirVertival = Input.GetAxis("Vertical");
 
@@ -57,20 +45,6 @@ namespace Game.Character
             }
             else
                 anim.SetBool("IsRunning", false);
-            
-            /* // OLD MOVE CONTROL
-            if (Input.GetMouseButtonDown(0))
-            movement *=-1;
-        
-            if (movement < 0)
-                sprite.flipX = true;
-
-            else
-                sprite.flipX = false;
-
-            anim.SetBool("IsRunning", true);
-            */ //~OLD MOVE CONTROL
-
 #elif UNITY_ANDROID
             anim.SetBool("IsRunning", true);
 
@@ -112,9 +86,6 @@ namespace Game.Character
 #endif
             transform.Translate(Vector3.right * (movementDirHorizontal * movementSpeed * Time.deltaTime));
             transform.Translate(Vector3.up * (movementDirVertival * movementSpeed * Time.deltaTime));
-            //Vector2 newVec = new Vector2(movement * speed * Time.deltaTime, transform.position.y);
-            //transform.position = new Vector3(transform.position.x + movementDir * movementSpeed * Time.deltaTime, transform.position.y, transform.position.z); // Было под андроид
-            //transform.Translate(newVec, Space.World);
         }
 
         private void RevertMovement()
@@ -124,9 +95,6 @@ namespace Game.Character
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            //if(other.collider.CompareTag("Floor"))
-            //    _isGrounded = true;
-            
             Debug.LogError(other.transform.name);
         }
     }
