@@ -19,6 +19,7 @@ namespace Game
         {
             _spriteRenderer = gunSprite.GetComponent<SpriteRenderer>();
             _audioSource = GetComponent<AudioSource>();
+            
         }
 
         public void SetSpriteFlipY(bool isEnabled)
@@ -39,9 +40,9 @@ namespace Game
                 case WeaponTypes.Shotgun:
                     for (var i = 0; i < 5; i++)
                     {
-                        var angleShift = Random.Range(-0.3f, 0.3f);
-                        var newRotation = new Quaternion(transform.rotation.x, transform.rotation.x, transform.rotation.z + angleShift, transform.rotation.w);
-                        bulletObject = Instantiate(bullet, gunPoint.transform.position, newRotation);
+                        var angleShift = Random.Range(-15f, 15f);
+                        bulletObject = Instantiate(bullet, gunPoint.transform.position, transform.rotation);
+                        bulletObject.transform.Rotate(0f, 0f, angleShift);
                         bulletObject.GetComponent<Bullet>().damage = damage;
                     }
                     break;

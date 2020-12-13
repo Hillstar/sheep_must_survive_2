@@ -17,7 +17,7 @@ namespace Game.Character
         {
             pistolGameObject.SetActive(false);
             shotgunGameObject.SetActive(false);
-            SelectWeapon(WeaponTypes.Pistol);
+            SelectWeapon(WeaponTypes.Shotgun);
         }
 
         private void Update()
