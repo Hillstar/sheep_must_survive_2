@@ -13,6 +13,8 @@ public class ExitPoint : MonoBehaviour
         {
             Destroy(other.gameObject);
             GameManager.numSheep--;
+            EnemySpawner.deadEnemiesCounter++;
+            Debug.LogError(EnemySpawner.deadEnemiesCounter);
         }
 
         Debug.LogWarning("Exit Point triggered");

@@ -18,6 +18,7 @@ namespace Game.Enemy
         private Animator _animator;
         private BoxCollider2D _collider;
         private bool _criticalDeath = false;
+        private bool _dropSheepAfterDeath = false;
 
         private void Start()
         {
@@ -30,6 +31,9 @@ namespace Game.Enemy
         
         private void Update()
         {
+            if (!_dropSheepAfterDeath && _enemyBehaviour.curState == EnemyStates.CarrySheep)
+                _dropSheepAfterDeath = true;
+            
             if (_curHealth <= 0 && _enemyBehaviour.curState != EnemyStates.Dead)
             {
                 _animator.SetTrigger("EnemyDie");
@@ -40,11 +44,12 @@ namespace Game.Enemy
                 EnemySpawner.deadEnemiesCounter++;
                 _collider.enabled = false;
                 Debug.LogError(EnemySpawner.deadEnemiesCounter);
+                if(_dropSheepAfterDeath)
+                    Instantiate(sheepToDrop, transform.position, Quaternion.identity);
             }
             else if(_enemyBehaviour.curState == EnemyStates.Dead && GameManager.gameState == GameStates.Break)
             {
-                var isEnemyCarryingSheep = _enemyBehaviour.curState == EnemyStates.CarrySheep;
-                Die(isEnemyCarryingSheep);
+                Die();
             }
         }
 
@@ -53,9 +58,8 @@ namespace Game.Enemy
             if(isCriticalShot)
             {
                 _criticalDeath = true;
-                var isEnemyCarryingSheep = _enemyBehaviour.curState == EnemyStates.CarrySheep;
                 EnemySpawner.deadEnemiesCounter++;
-                Die(isEnemyCarryingSheep);
+                Die();
             }
             else
             {
@@ -67,23 +71,14 @@ namespace Game.Enemy
             }
         }
 
-        private IEnumerator WaitBeforeDie(bool dropSheep)
-        {
-            yield return new WaitForSeconds(0.33f);
-            Die(dropSheep);
-        }
-        
         private IEnumerator StopHitFlash()
         {
             yield return new WaitForSeconds(0.05f);
             _spriteRenderer.color = Color.white;
         }
 
-        private void Die(bool dropSheep)
+        private void Die()
         {
-            if(dropSheep)
-                Instantiate(sheepToDrop, transform.position, Quaternion.identity);
-            
             if(_criticalDeath)
                 Instantiate(criticalExplosion, transform.position, Quaternion.identity);
             else

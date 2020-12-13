@@ -8,7 +8,6 @@ namespace Game.Character
         public float shootingDelay = 1.0f;
         public GameObject pistolGameObject;
         public GameObject shotgunGameObject;
-        
         public Weapon curWeapon;
         
         private float _timeToShoot;
@@ -17,7 +16,7 @@ namespace Game.Character
         {
             pistolGameObject.SetActive(false);
             shotgunGameObject.SetActive(false);
-            SelectWeapon(WeaponTypes.Shotgun);
+            SelectWeapon(WeaponTypes.Pistol);
         }
 
         private void Update()
