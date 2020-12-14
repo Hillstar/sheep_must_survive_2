@@ -5,6 +5,7 @@ namespace Game.Character
 {
     public class CharacterWeaponControl : MonoBehaviour
     {
+        public Joystick joystick;
         public float shootingDelay = 1.0f;
         public GameObject pistolGameObject;
         public GameObject shotgunGameObject;
@@ -22,15 +23,24 @@ namespace Game.Character
         private void Update()
         {
             // Shooting control
+#if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButton(0) && Time.time >= _timeToShoot)
             {
                 curWeapon.Shoot();
                 _timeToShoot = Time.time + shootingDelay;
             }
-        
             // Weapon rotating
             var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             var dir = (Vector2)(mousePos - transform.position).normalized;
+#elif UNITY_ANDROID
+            var dir = new Vector2(joystick.Horizontal, joystick.Vertical).normalized;
+            if(dir != Vector2.zero && Time.time >= _timeToShoot)
+            {
+                curWeapon.Shoot();
+                _timeToShoot = Time.time + shootingDelay;
+            }
+#endif
+            
             var rotAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotAngle);
             if (rotAngle > 90f || rotAngle < -90f)
