@@ -14,17 +14,18 @@ namespace Game.Enemy
         private float _timeToAttack;
         public GameObject _target;
         private Animator _animator;
+        private AudioSource _audioSource;
 
         private void Start()
         {
             _animator = enemyBehaviour.gameObject.GetComponent<Animator>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         private void Update()
         {
             if (_target != null)
             {
-                Debug.LogError("!@#!@#@!");
                 if (enemyBehaviour.curState == EnemyStates.ChasePlayer)
                 {
                     enemyBehaviour.SwitchState(EnemyStates.Attacking);
@@ -37,6 +38,7 @@ namespace Game.Enemy
                         _animator.SetTrigger($"attack_{attackAnimationIndex}");
                         _target.GetComponent<CharacterHealth>().GetDamage(damage);
                         _timeToAttack = Time.time + attackDelay;
+                        _audioSource.Play();
                     }
                 }
             }

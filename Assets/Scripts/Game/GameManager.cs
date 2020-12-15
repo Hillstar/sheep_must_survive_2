@@ -33,7 +33,7 @@ namespace Game
             sheeps = GameObject.FindGameObjectsWithTag("Sheep"); // TODO: Лучше переделать, может быть дорого
             Debug.LogError(gameState);
 
-            if (!isPlayerAlive || numSheep < 1)
+            if (!isPlayerAlive) //  || numSheep < 1
             {
                 gameState = GameStates.GameOver;
             }

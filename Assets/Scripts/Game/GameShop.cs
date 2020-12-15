@@ -11,6 +11,8 @@ namespace Game
         public CharacterWeaponControl characterWeaponControl;
         public Animator canvasAnimator;
         public GameObject shotgunPrice;
+        public GameObject riflePrice;
+        public GameObject laserPrice;
         
         private bool _shotgunBought = false;
 
@@ -32,7 +34,7 @@ namespace Game
         {
             if (GameManager.money < 100) return;
             GameManager.money -= 100;
-            characterWeaponControl.shootingDelay *= 0.8f;
+            characterWeaponControl.curWeapon.shootingDelay *= 0.8f;
         }
     
         public void SelectPistol()
@@ -49,8 +51,34 @@ namespace Game
                 shotgunPrice.gameObject.SetActive(false);
             }
             
-            else if(_shotgunBought)
+            if(_shotgunBought)
                 characterWeaponControl.SelectWeapon(WeaponTypes.Shotgun);
+        }
+        
+        public void SelectRifle()
+        {
+            if (!_shotgunBought && GameManager.money >= 2000)
+            {
+                _shotgunBought = true;
+                GameManager.money -= 2000;
+                riflePrice.gameObject.SetActive(false);
+            }
+            
+            if(_shotgunBought)
+                characterWeaponControl.SelectWeapon(WeaponTypes.Rifle);
+        }
+        
+        public void SelectLaser()
+        {
+            if (!_shotgunBought && GameManager.money >= 3000)
+            {
+                _shotgunBought = true;
+                GameManager.money -= 3000;
+                laserPrice.gameObject.SetActive(false);
+            }
+            
+            if(_shotgunBought)
+                characterWeaponControl.SelectWeapon(WeaponTypes.Laser);
         }
 
         public void GoNextWave()

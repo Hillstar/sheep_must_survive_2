@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace Game
@@ -12,17 +11,25 @@ namespace Game
         public int numToSpawn = 3;
         public float spawnDelay = 5.0f;
         public Transform[] spawnPoints;
+        public int numWaves;
     
         private float _timeToSpawn;
         private int _numOfSpawned;
 
         private void Start()
         {
+            numWaves = 0;
             deadEnemiesCounter = 0;
         }
 
         private void Update()
         {
+            if(GameManager.gameState == GameStates.BreakEnded)
+            {
+                GameManager.gameState = GameStates.WaveRunning;
+                numWaves++;
+            }
+            
             if(_numOfSpawned < numToSpawn) 
             {
                 if(GameManager.gameState == GameStates.WaveRunning && Time.time >= _timeToSpawn)

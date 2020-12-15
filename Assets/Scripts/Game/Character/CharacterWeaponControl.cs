@@ -6,9 +6,10 @@ namespace Game.Character
     public class CharacterWeaponControl : MonoBehaviour
     {
         public Joystick joystick;
-        public float shootingDelay = 1.0f;
         public GameObject pistolGameObject;
         public GameObject shotgunGameObject;
+        public GameObject rifleGameObject;
+        public GameObject laserGameObject;
         public Weapon curWeapon;
         
         private float _timeToShoot;
@@ -17,7 +18,9 @@ namespace Game.Character
         {
             pistolGameObject.SetActive(false);
             shotgunGameObject.SetActive(false);
-            SelectWeapon(WeaponTypes.Pistol);
+            rifleGameObject.SetActive(false);
+            laserGameObject.SetActive(false);
+            SelectWeapon(WeaponTypes.Laser);
         }
 
         private void Update()
@@ -27,7 +30,7 @@ namespace Game.Character
             if(Input.GetMouseButton(0) && Time.time >= _timeToShoot)
             {
                 curWeapon.Shoot();
-                _timeToShoot = Time.time + shootingDelay;
+                _timeToShoot = Time.time + curWeapon.shootingDelay;
             }
             // Weapon rotating
             var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -55,14 +58,20 @@ namespace Game.Character
             switch (weapon)
             {
                 case WeaponTypes.Pistol:
-                    Debug.LogWarning("Selected Pistol");
                     pistolGameObject.SetActive(true);
                     curWeapon = pistolGameObject.GetComponent<Weapon>();
                     break;
                 case WeaponTypes.Shotgun:
-                    Debug.LogWarning("Selected Shotgun");
                     shotgunGameObject.SetActive(true);
                     curWeapon = shotgunGameObject.GetComponent<Weapon>();
+                    break;
+                case WeaponTypes.Rifle:
+                    rifleGameObject.SetActive(true);
+                    curWeapon = rifleGameObject.GetComponent<Weapon>();
+                    break;
+                case WeaponTypes.Laser:
+                    laserGameObject.SetActive(true);
+                    curWeapon = laserGameObject.GetComponent<Weapon>();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(weapon), weapon, null);

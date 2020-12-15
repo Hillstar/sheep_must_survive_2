@@ -3,7 +3,9 @@
     public enum WeaponTypes
     {
         Pistol,
-        Shotgun
+        Shotgun,
+        Rifle,
+        Laser
     }
     
     public enum GameStates

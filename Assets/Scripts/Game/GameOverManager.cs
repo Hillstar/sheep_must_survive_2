@@ -7,7 +7,7 @@ namespace Game
     public class GameOverManager : MonoBehaviour 
     {
         public AudioSource audioS;
-        public WavesManager wavesManager;
+        public EnemySpawner wavesManager;
         public Button retryBut;
         public Button goMenuBut;
 
