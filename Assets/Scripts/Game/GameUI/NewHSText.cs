@@ -16,7 +16,7 @@ public class NewHSText : MonoBehaviour {
     // Update is called once per frame
     private void Update () 
     {
-        if (!GameManager.isPlayerAlive && GameManager.score > PlayerPrefs.GetInt("HighScore"))
+        if (!GameManager.isPlayerAlive && GameManager.money > PlayerPrefs.GetInt("HighScore"))
             _anim.SetTrigger("NewHS");
 	}
 }

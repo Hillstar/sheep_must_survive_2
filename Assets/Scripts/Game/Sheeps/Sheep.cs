@@ -9,7 +9,7 @@ public class Sheep : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            GameManager.score++;
+            GameManager.money++;
             GameManager.hereSheep = false;
             Destroy(gameObject);
         }

@@ -4,7 +4,7 @@ namespace Game
 {
     public class GameManager : MonoBehaviour 
     {
-        public static int score;
+        public static int money;
         public static int numSheep;
         public static bool hereSheep;
         public static bool isPlayerAlive;
@@ -19,7 +19,7 @@ namespace Game
             var sheeps = GameObject.FindGameObjectsWithTag("Sheep");
             numSheep = sheeps.Length;
             isPlayerAlive = true;
-            score = 0;
+            money = 0;
             hereSheep = false;
             AudioListener.volume = isntMute ? 1 : 0;
             gameState = GameStates.WaveRunning;
@@ -35,7 +35,7 @@ namespace Game
 
             if (!isPlayerAlive || numSheep < 1)
             {
-                //gameState = GameStates.GameOver;
+                gameState = GameStates.GameOver;
             }
         }
     }

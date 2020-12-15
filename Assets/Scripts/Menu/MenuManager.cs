@@ -1,156 +1,166 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game;
+﻿using Game;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class MenuManager : MonoBehaviour
+namespace Menu
 {
-    public Button muteButton;
-    public Sprite nmSprite;
-    public Sprite mSprite;
-    public GameObject[] menuCharacters;
-    public GameObject[] themes;
-
-    private Image _image;
-    private Animator _anim;
-    private bool _goPlay;
-    private bool _goShop;
-    private float _timer;
-
-    private void Awake()
+    public class MenuManager : MonoBehaviour
     {
-        FirstStart();
+        public Button muteButton;
+        public Sprite nmSprite;
+        public Sprite mSprite;
+        public Text maxWavesText;
+        public GameObject[] menuCharacters;
+        public GameObject[] themes;
 
-        //Vector3 newPos = new Vector3(0f, 0f, 0f);
-        switch (PlayerPrefs.GetInt("CurrentTheme"))
+        private Image _image;
+        private Animator _anim;
+        private bool _goPlay;
+        private bool _goShop;
+        private float _timer;
+
+        private void Awake()
         {
-            case 0:
-                Instantiate(themes[0], themes[0].transform.position, Quaternion.identity);
-                break;
-
-            case 1:
-                Instantiate(themes[1], themes[1].transform.position, Quaternion.identity);
-                break;
-
-            case 2:
-                Instantiate(themes[2], themes[2].transform.position, Quaternion.identity);
-                break;
-        }
-
-        // ставим перса в главном меню
-        var newPos = new Vector3(-1.9f, -4.11f, 0f);
-        Instantiate(menuCharacters[PlayerPrefs.GetInt("CurrentChar")], newPos, Quaternion.identity);
-    }
-
-    private void Start()
-    {
-        _anim = GetComponent<Animator>();
-        _image = muteButton.GetComponent<Image>();
-        _goPlay = false;
-        ChangeSprites();
-    }
-
-    public void PlayGame()
-    {
-        _goPlay = true;
-        _timer = Time.time + 0.3f;
-        _anim.SetTrigger("Play");
-    }
-
-    public void GoShop()
-    {
-        _goShop = true;
-        _timer = Time.time + 0.3f;
-        _anim.SetTrigger("Play");
-    }
-
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
-    private void Update()
-    {
-        if (_goPlay && Time.time > _timer)
-        {
-            switch(PlayerPrefs.GetInt("CurrentTheme"))
+            FirstStart();
+        
+            Instantiate(themes[0], themes[0].transform.position, Quaternion.identity);
+            /*
+            //Vector3 newPos = new Vector3(0f, 0f, 0f);
+            switch (PlayerPrefs.GetInt("CurrentTheme"))
             {
                 case 0:
-                    SceneManager.LoadScene("Game");
+                    Instantiate(themes[0], themes[0].transform.position, Quaternion.identity);
                     break;
 
                 case 1:
-                    SceneManager.LoadScene("Game_City");
+                    Instantiate(themes[1], themes[1].transform.position, Quaternion.identity);
                     break;
 
                 case 2:
-                    SceneManager.LoadScene("Game_Beach");
+                    Instantiate(themes[2], themes[2].transform.position, Quaternion.identity);
                     break;
             }
+            */
+
+            // ставим перса в главном меню
+            var newPos = new Vector3(-1.9f, -4.11f, 0f);
+            Instantiate(menuCharacters[PlayerPrefs.GetInt("CurrentChar")], newPos, Quaternion.identity);
         }
 
-        if (_goShop && Time.time > _timer)
-            SceneManager.LoadScene("Shop");
-    }
-
-    public void Mute()
-    {
-        GameManager.isntMute = !GameManager.isntMute;
-        AudioListener.volume = GameManager.isntMute ? 1 : 0;
-        ChangeSprites();
-    }
-
-    public void ChangeSprites()
-    {
-        if (GameManager.isntMute)
-            _image.sprite = nmSprite;
-        else
-            _image.sprite = mSprite;
-    }
-
-    private void FirstStart()
-    {
-        // убрать знаки ! в цифрах для сброса статов
-        if(!PlayerPrefs.HasKey("HighScore"))
+        private void Start()
         {
-            PlayerPrefs.SetInt("HighScore", 0);
+            _anim = GetComponent<Animator>();
+            _image = muteButton.GetComponent<Image>();
+            _goPlay = false;
+            ChangeSprites();
+
+            maxWavesText.text = "Max waves:" + PlayerPrefs.GetInt("Highscore");
         }
 
-        if (!PlayerPrefs.HasKey("Coins"))
+        public void PlayGame()
         {
-            PlayerPrefs.SetInt("Coins", 0);
+            _goPlay = true;
+            _timer = Time.time + 0.3f;
+            _anim.SetTrigger("Play");
         }
 
-        if (!PlayerPrefs.HasKey("KateIsAv"))
+        public void GoShop()
         {
-            PlayerPrefs.SetInt("KateIsAv", 0);
+            _goShop = true;
+            _timer = Time.time + 0.4f;
+            _anim.SetTrigger("Play");
         }
 
-        if (!PlayerPrefs.HasKey("MrIsAv"))
+        public void Quit()
         {
-            PlayerPrefs.SetInt("MrIsAv", 0);
+            Application.Quit();
         }
 
-        if (!PlayerPrefs.HasKey("CityIsAv"))
+        private void Update()
         {
-            PlayerPrefs.SetInt("CityIsAv", 0);
+            if (_goPlay && Time.time > _timer)
+            {
+                SceneManager.LoadScene("Game");
+                /*
+                switch(PlayerPrefs.GetInt("CurrentTheme"))
+                {
+                    case 0:
+                        SceneManager.LoadScene("Game");
+                        break;
+
+                    case 1:
+                        SceneManager.LoadScene("Game_City");
+                        break;
+
+                    case 2:
+                        SceneManager.LoadScene("Game_Beach");
+                        break;
+                }
+                */
+            }
+
+            if (_goShop && Time.time > _timer)
+                SceneManager.LoadScene("Shop");
         }
 
-        if (!PlayerPrefs.HasKey("BeachIsAv"))
+        public void Mute()
         {
-            PlayerPrefs.SetInt("BeachIsAv", 0);
+            GameManager.isntMute = !GameManager.isntMute;
+            AudioListener.volume = GameManager.isntMute ? 1 : 0;
+            ChangeSprites();
         }
 
-        if (!PlayerPrefs.HasKey("CurrentTheme"))
+        public void ChangeSprites()
         {
-            PlayerPrefs.SetInt("CurrentTheme", 0);
+            if (GameManager.isntMute)
+                _image.sprite = nmSprite;
+            else
+                _image.sprite = mSprite;
         }
 
-        if (!PlayerPrefs.HasKey("CurrentChar"))
+        private void FirstStart()
         {
-            PlayerPrefs.SetInt("CurrentChar", 0);
+            // убрать знаки ! в цифрах для сброса статов
+            if(!PlayerPrefs.HasKey("HighScore"))
+            {
+                PlayerPrefs.SetInt("HighScore", 0);
+            }
+
+            if (!PlayerPrefs.HasKey("Coins"))
+            {
+                PlayerPrefs.SetInt("Coins", 0);
+            }
+
+            if (!PlayerPrefs.HasKey("KateIsAv"))
+            {
+                PlayerPrefs.SetInt("KateIsAv", 0);
+            }
+
+            if (!PlayerPrefs.HasKey("MrIsAv"))
+            {
+                PlayerPrefs.SetInt("MrIsAv", 0);
+            }
+
+            if (!PlayerPrefs.HasKey("CityIsAv"))
+            {
+                PlayerPrefs.SetInt("CityIsAv", 0);
+            }
+
+            if (!PlayerPrefs.HasKey("BeachIsAv"))
+            {
+                PlayerPrefs.SetInt("BeachIsAv", 0);
+            }
+
+            if (!PlayerPrefs.HasKey("CurrentTheme"))
+            {
+                PlayerPrefs.SetInt("CurrentTheme", 0);
+            }
+
+            if (!PlayerPrefs.HasKey("CurrentChar"))
+            {
+                PlayerPrefs.SetInt("CurrentChar", 0);
+            }
         }
     }
 }

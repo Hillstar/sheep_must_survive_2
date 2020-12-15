@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sortingOrderBase: 5000
-  offset: 5
+  offset: 3
 --- !u!95 &5113998813582659054
 Animator:
   serializedVersion: 3

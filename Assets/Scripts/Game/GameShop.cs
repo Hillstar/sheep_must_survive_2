@@ -10,23 +10,28 @@ namespace Game
     {
         public CharacterWeaponControl characterWeaponControl;
         public Animator canvasAnimator;
+        public GameObject shotgunPrice;
+        
+        private bool _shotgunBought = false;
 
         private void Update()
         {
-            if (GameManager.gameState == GameStates.WaveEnded)
-            {
-                GameManager.gameState = GameStates.Break;
-                canvasAnimator.SetTrigger("BreakStart");
-            }
+            if (GameManager.gameState != GameStates.WaveEnded) return;
+            GameManager.gameState = GameStates.Break;
+            canvasAnimator.SetTrigger("BreakStart");
         }
 
         public void UpgradeDamage()
         {
-            characterWeaponControl.curWeapon.damage += 1f;
+            if (GameManager.money < 100) return;
+            GameManager.money -= 100;
+            characterWeaponControl.curWeapon.damage += 0.7f;
         }
     
         public void UpgradeShootingSpeed()
         {
+            if (GameManager.money < 100) return;
+            GameManager.money -= 100;
             characterWeaponControl.shootingDelay *= 0.8f;
         }
     
@@ -37,7 +42,15 @@ namespace Game
     
         public void SelectShotgun()
         {
-            characterWeaponControl.SelectWeapon(WeaponTypes.Shotgun);
+            if (!_shotgunBought && GameManager.money >= 1000)
+            {
+                _shotgunBought = true;
+                GameManager.money -= 1000;
+                shotgunPrice.gameObject.SetActive(false);
+            }
+            
+            else if(_shotgunBought)
+                characterWeaponControl.SelectWeapon(WeaponTypes.Shotgun);
         }
 
         public void GoNextWave()

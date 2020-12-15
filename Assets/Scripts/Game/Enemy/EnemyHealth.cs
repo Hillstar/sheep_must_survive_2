@@ -46,6 +46,7 @@ namespace Game.Enemy
                 Debug.LogError(EnemySpawner.deadEnemiesCounter);
                 if(_dropSheepAfterDeath)
                     Instantiate(sheepToDrop, transform.position, Quaternion.identity);
+                GameManager.money += 100;
             }
             else if(_enemyBehaviour.curState == EnemyStates.Dead && GameManager.gameState == GameStates.Break)
             {
@@ -58,6 +59,7 @@ namespace Game.Enemy
             if(isCriticalShot)
             {
                 _criticalDeath = true;
+                GameManager.money += 100;
                 EnemySpawner.deadEnemiesCounter++;
                 Die();
             }

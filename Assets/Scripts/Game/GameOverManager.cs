@@ -7,7 +7,7 @@ namespace Game
     public class GameOverManager : MonoBehaviour 
     {
         public AudioSource audioS;
-        public GameManager gm;
+        public WavesManager wavesManager;
         public Button retryBut;
         public Button goMenuBut;
 
@@ -15,6 +15,7 @@ namespace Game
         private bool _goMenu = false;
         private bool _retry = false;
         private float _timeToGo;
+        private bool _gameStopped;
 
         private void Awake()
         {
@@ -23,8 +24,11 @@ namespace Game
     
         private void Update () 
         {
-            if(GameManager.gameState == GameStates.GameOver)
+            if(!_gameStopped && GameManager.gameState == GameStates.GameOver)
             {
+                _gameStopped = true;
+                if(wavesManager.numWaves > PlayerPrefs.GetInt("Highscore"))
+                    PlayerPrefs.SetInt("Highscore", wavesManager.numWaves);
                 _anim.SetTrigger("GameOver");
 
                 retryBut.gameObject.SetActive(true);
@@ -36,6 +40,8 @@ namespace Game
 
             if(_retry && Time.time >= _timeToGo)
             {
+                SceneManager.LoadScene("Game");
+                /*
                 switch (PlayerPrefs.GetInt("CurrentTheme"))
                 {
                     case 0:
@@ -50,6 +56,7 @@ namespace Game
                         SceneManager.LoadScene("Game_Beach");
                         break;
                 }
+                */
             }
         }
 
@@ -69,9 +76,9 @@ namespace Game
 
         private void SetNewHighscore()
         {
-            if(GameManager.score > PlayerPrefs.GetInt("HighScore"))
+            if(GameManager.money > PlayerPrefs.GetInt("HighScore"))
             {
-                PlayerPrefs.SetInt("HighScore", GameManager.score);
+                PlayerPrefs.SetInt("HighScore", GameManager.money);
             }
         }
 
