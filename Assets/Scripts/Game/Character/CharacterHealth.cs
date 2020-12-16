@@ -1,28 +1,40 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game.Character
 {
     public class CharacterHealth : MonoBehaviour
     {
         public float maxHealth = 10f;
+        public float curHealth = 10f;
 
-        public float _curHealth = 10f;
+        private SpriteRenderer _spriteRenderer;
         
         private void Start()
         {
-            _curHealth = maxHealth;
+            curHealth = maxHealth;
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         // Update is called once per frame
         private void Update()
         {
-            if(_curHealth <= 0)
+            if(curHealth <= 0)
                 Destroy(gameObject);
         }
 
         public void GetDamage(float damage)
         {
-            _curHealth -= damage;
+            curHealth -= damage;
+            _spriteRenderer.color = Color.red;
+            StartCoroutine(StopHitFlash());
+        }
+        
+        private IEnumerator StopHitFlash()
+        {
+            yield return new WaitForSeconds(0.05f);
+            _spriteRenderer.color = Color.white;
         }
     }
 }

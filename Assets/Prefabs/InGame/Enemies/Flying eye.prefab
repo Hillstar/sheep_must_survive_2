@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5d62f6bc4e0cd479feff745cd7eac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 3
   attackDelay: 1
   enemyBehaviour: {fileID: 1591965851}
   _target: {fileID: 0}

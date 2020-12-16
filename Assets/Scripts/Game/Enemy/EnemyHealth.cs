@@ -6,7 +6,7 @@ namespace Game.Enemy
 {
     public class EnemyHealth : MonoBehaviour
     {
-        public float maxHealth = 5f;
+        public float health = 5f;
         public GameObject sheepToDrop;
         public GameObject deathExplosion;
         public GameObject criticalExplosion;
@@ -22,7 +22,7 @@ namespace Game.Enemy
 
         private void Start()
         {
-            _curHealth = maxHealth;
+            _curHealth = health;
             _enemyBehaviour = GetComponent<EnemyBehaviour>();
             _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();

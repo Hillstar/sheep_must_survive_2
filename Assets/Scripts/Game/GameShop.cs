@@ -9,10 +9,12 @@ namespace Game
     public class GameShop : MonoBehaviour
     {
         public CharacterWeaponControl characterWeaponControl;
+        public CharacterHealth characterHealth;
         public Animator canvasAnimator;
         public GameObject shotgunPrice;
         public GameObject riflePrice;
         public GameObject laserPrice;
+        public GameObject restoreHpPrice;
         
         private bool _shotgunBought = false;
 
@@ -28,13 +30,16 @@ namespace Game
             if (GameManager.money < 100) return;
             GameManager.money -= 100;
             characterWeaponControl.curWeapon.damage += 0.7f;
+            restoreHpPrice.SetActive(characterHealth.curHealth < characterHealth.maxHealth);
         }
     
-        public void UpgradeShootingSpeed()
+        public void RestoreHP()
         {
-            if (GameManager.money < 100) return;
-            GameManager.money -= 100;
-            characterWeaponControl.curWeapon.shootingDelay *= 0.8f;
+            if (characterHealth.curHealth < characterHealth.maxHealth && GameManager.money >= 100)
+            {
+                characterHealth.curHealth = (characterHealth.curHealth + 10) % 110;
+                GameManager.money -= 100;
+            }
         }
     
         public void SelectPistol()

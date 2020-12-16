@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Game.Character;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,7 +9,7 @@ namespace Game.Enemy
 {
     public class EnemyAttack : MonoBehaviour
     {
-        public float damage = 1f;
+        public int damage = 1;
         public float attackDelay = 1.0f;
         public EnemyBehaviour enemyBehaviour;
 
@@ -36,7 +38,7 @@ namespace Game.Enemy
                     {
                         var attackAnimationIndex = Random.Range(0, 2);
                         _animator.SetTrigger($"attack_{attackAnimationIndex}");
-                        _target.GetComponent<CharacterHealth>().GetDamage(damage);
+                        StartCoroutine(WaitBeforeAttack());
                         _timeToAttack = Time.time + attackDelay;
                         _audioSource.Play();
                     }
@@ -46,6 +48,12 @@ namespace Game.Enemy
             {
                 enemyBehaviour.SwitchState(EnemyStates.ChaseSheep);
             }
+        }
+        
+        private IEnumerator WaitBeforeAttack()
+        {
+            yield return new WaitForSeconds(0.15f);
+            _target.GetComponent<CharacterHealth>().GetDamage(damage);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

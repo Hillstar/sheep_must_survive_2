@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using Game.Character;
+using TMPro;
 using UnityEngine;
 
 namespace Game.GameUI
@@ -10,13 +12,23 @@ namespace Game.GameUI
         public TextMeshProUGUI gameOverTopText;
         public TextMeshProUGUI numSheepText;
         public TextMeshProUGUI waveNumText;
+        public TextMeshProUGUI hpText;
 
-        // Update is called once per frame
+        private CharacterHealth _characterHealth;
+        private EnemySpawner _enemySpawner;
+
+        private void Start()
+        {
+            _characterHealth = GameObject.FindWithTag("Player").GetComponent<CharacterHealth>();
+            _enemySpawner = GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>();
+        }
+        
         private void Update () 
         {
             moneyText.text = GameManager.money.ToString();
             numSheepText.text = "Sheep remaining: " + GameManager.numSheep;
-            waveNumText.text = "Some wave";
+            waveNumText.text = _enemySpawner.numWaves.ToString();
+            hpText.text = _characterHealth.curHealth.ToString();
             
             //gameOverScoreText.text = "Score: " + GameManager.score;
             gameOverTopText.text = "Highscore: " + PlayerPrefs.GetInt("HighScore");
