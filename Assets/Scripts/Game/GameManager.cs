@@ -12,7 +12,7 @@ namespace Game
         public static GameObject[] sheeps;
         public static GameStates gameState;
 
-        public GameObject[] characters;
+        // GameObject[] characters;
     
         private void Awake ()
         {

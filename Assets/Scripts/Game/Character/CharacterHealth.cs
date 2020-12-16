@@ -20,8 +20,8 @@ namespace Game.Character
         // Update is called once per frame
         private void Update()
         {
-            if(curHealth <= 0)
-                Destroy(gameObject);
+            if (curHealth <= 0)
+                GameManager.isPlayerAlive = false;
         }
 
         public void GetDamage(float damage)

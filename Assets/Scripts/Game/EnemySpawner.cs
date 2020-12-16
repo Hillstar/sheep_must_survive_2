@@ -24,6 +24,7 @@ namespace Game
 
         private void Update()
         {
+            Debug.LogError(deadEnemiesCounter);
             if(GameManager.gameState == GameStates.BreakEnded)
             {
                 GameManager.gameState = GameStates.WaveRunning;
@@ -42,7 +43,7 @@ namespace Game
                     _numOfSpawned++;
                 }
             }
-            else if(deadEnemiesCounter == numToSpawn) // если волна закончилась
+            else if(deadEnemiesCounter >= numToSpawn) // если волна закончилась
             {
                 _numOfSpawned = 0;
                 deadEnemiesCounter = 0;

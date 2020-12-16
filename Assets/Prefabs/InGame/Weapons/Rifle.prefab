@@ -188,6 +188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+  shootingDelay: 0.25
+  criticalChance: 0.3
   bullet: {fileID: 2715407113674600017, guid: a5c1863fe3e1e884ea1913f381436bd6, type: 3}
   gunPoint: {fileID: 784830273186293869}
   gunSprite: {fileID: 6780036252314460690}

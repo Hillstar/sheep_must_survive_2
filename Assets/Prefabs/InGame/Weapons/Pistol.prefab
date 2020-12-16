@@ -157,7 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 432468d587fae8949ac1f78505e982dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 2
+  shootingDelay: 0.7
+  criticalChance: 0.2
   bullet: {fileID: 2715407113674600017, guid: a5c1863fe3e1e884ea1913f381436bd6, type: 3}
   gunPoint: {fileID: 9110013168264897711}
   gunSprite: {fileID: 461182894152487370}

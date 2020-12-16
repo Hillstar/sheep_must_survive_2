@@ -446,12 +446,12 @@ RectTransform:
   - {fileID: 1003558749}
   - {fileID: 1221210854}
   m_Father: {fileID: 705245808}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 920}
-  m_SizeDelta: {x: 460, y: 160}
+  m_SizeDelta: {x: 800, y: 440}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &39822088
 MonoBehaviour:
@@ -473,7 +473,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300014, guid: 51c5e407c52ab834f83c5e2dcf03296a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a5d8785d80a4ee42a2a4c8632436dc0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -55442,7 +55442,6 @@ GameObject:
   - component: {fileID: 95150677}
   - component: {fileID: 95150676}
   - component: {fileID: 95150678}
-  - component: {fileID: 95150679}
   - component: {fileID: 95150680}
   m_Layer: 0
   m_Name: Game Manager
@@ -55463,10 +55462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1a9958b628c904b8f66a690a4ff8b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characters:
-  - {fileID: 1651821587775860, guid: a86f337e5b6565d4e87590bd5cdc2cb8, type: 3}
-  - {fileID: 1651821587775860, guid: ca004ccce920c224193e742ecc90d929, type: 3}
-  - {fileID: 1651821587775860, guid: 37f6eec03b0284547a9e3edb29ec4415, type: 3}
 --- !u!4 &95150677
 Transform:
   m_ObjectHideFlags: 0
@@ -55488,7 +55483,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95150675}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e55be6f540a709a42834d3ac1adbed60, type: 3}
@@ -55577,23 +55572,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &95150679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95150675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeca56687eab7c144bf95c5738eedc51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backgrounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  smoothing: 1
 --- !u!114 &95150680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55603,7 +55581,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 95150675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5671725be0474db4da7754b032d096dd, type: 3}
+  m_Script: {fileID: 11500000, guid: eb1a9958b628c904b8f66a690a4ff8b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &105554295
@@ -56931,7 +56909,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &407312201
@@ -57473,7 +57451,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 300
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -57609,7 +57587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioS: {fileID: 705245809}
-  wavesManager: {fileID: 0}
+  enemySpawner: {fileID: 1708808039}
   retryBut: {fileID: 2020362393}
   goMenuBut: {fileID: 1219125023}
 --- !u!114 &705245805
@@ -57688,8 +57666,8 @@ RectTransform:
   - {fileID: 405064796}
   - {fileID: 22892879}
   - {fileID: 1102037972}
-  - {fileID: 2020362396}
   - {fileID: 39822087}
+  - {fileID: 2020362396}
   - {fileID: 1219125026}
   - {fileID: 602339788}
   - {fileID: 1521891842}
@@ -57831,7 +57809,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 7}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &716703882
@@ -58017,7 +57995,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1528076529}
         m_TargetAssemblyTypeName: Game.GameShop, Assembly-CSharp
-        m_MethodName: UpgradeDamage
+        m_MethodName: RestoreHp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -58370,7 +58348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 2017731673}
-  gameOverScoreText: {fileID: 1003558747}
+  gameOverWavesText: {fileID: 1003558747}
   gameOverTopText: {fileID: 1221210852}
   numSheepText: {fileID: 841020897}
   waveNumText: {fileID: 1366231321}
@@ -58793,7 +58771,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score: '
+  m_text: you survived 0 waves
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -58886,8 +58864,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 33.36}
-  m_SizeDelta: {x: 420, y: 50}
+  m_AnchoredPosition: {x: 0, y: 140}
+  m_SizeDelta: {x: 550, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1011808384
 PrefabInstance:
@@ -58896,6 +58874,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1229757941, guid: a86f337e5b6565d4e87590bd5cdc2cb8, type: 3}
+      propertyPath: maxHealth
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1651821587775860, guid: a86f337e5b6565d4e87590bd5cdc2cb8, type: 3}
       propertyPath: m_Name
       value: PlayerFarmer
@@ -60150,7 +60132,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300006, guid: 51c5e407c52ab834f83c5e2dcf03296a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: efee20b64d1e73942a29ba61ce3379c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -60185,7 +60167,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -170}
+  m_AnchoredPosition: {x: 0, y: -115}
   m_SizeDelta: {x: 210, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1221210851
@@ -60319,8 +60301,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -20}
-  m_SizeDelta: {x: 419.3, y: 50}
+  m_AnchoredPosition: {x: 0, y: 81}
+  m_SizeDelta: {x: 418, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1264081100
 GameObject:
@@ -90000,7 +89982,7 @@ MonoBehaviour:
   shotgunPrice: {fileID: 1342782936}
   riflePrice: {fileID: 399540662}
   laserPrice: {fileID: 1566780476}
-  restoreHpPrice: {fileID: 867375086}
+  restoreHpButton: {fileID: 790214645}
 --- !u!1 &1562193615
 GameObject:
   m_ObjectHideFlags: 0
@@ -99378,7 +99360,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300006, guid: 51c5e407c52ab834f83c5e2dcf03296a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: efee20b64d1e73942a29ba61ce3379c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -99409,11 +99391,11 @@ RectTransform:
   m_Children:
   - {fileID: 716703881}
   m_Father: {fileID: 705245808}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -70}
+  m_AnchoredPosition: {x: 0, y: -15}
   m_SizeDelta: {x: 250, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2073853393

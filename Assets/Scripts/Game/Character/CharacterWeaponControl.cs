@@ -20,7 +20,7 @@ namespace Game.Character
             shotgunGameObject.SetActive(false);
             rifleGameObject.SetActive(false);
             laserGameObject.SetActive(false);
-            SelectWeapon(WeaponTypes.Laser);
+            SelectWeapon(WeaponTypes.Rifle);
         }
 
         private void Update()

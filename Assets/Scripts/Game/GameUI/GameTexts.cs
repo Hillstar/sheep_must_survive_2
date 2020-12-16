@@ -8,7 +8,7 @@ namespace Game.GameUI
     public class GameTexts : MonoBehaviour 
     {
         public TextMeshProUGUI moneyText;
-        public TextMeshProUGUI gameOverScoreText;
+        public TextMeshProUGUI gameOverWavesText;
         public TextMeshProUGUI gameOverTopText;
         public TextMeshProUGUI numSheepText;
         public TextMeshProUGUI waveNumText;
@@ -27,10 +27,10 @@ namespace Game.GameUI
         {
             moneyText.text = GameManager.money.ToString();
             numSheepText.text = "Sheep remaining: " + GameManager.numSheep;
-            waveNumText.text = _enemySpawner.numWaves.ToString();
+            waveNumText.text = "Wave " + _enemySpawner.numWaves;
             hpText.text = _characterHealth.curHealth.ToString();
             
-            //gameOverScoreText.text = "Score: " + GameManager.score;
+            gameOverWavesText.text = "you survived " + _enemySpawner.numWaves + " waves";
             gameOverTopText.text = "Highscore: " + PlayerPrefs.GetInt("HighScore");
         }
     }

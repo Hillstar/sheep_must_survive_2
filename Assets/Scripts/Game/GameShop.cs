@@ -14,7 +14,7 @@ namespace Game
         public GameObject shotgunPrice;
         public GameObject riflePrice;
         public GameObject laserPrice;
-        public GameObject restoreHpPrice;
+        public GameObject restoreHpButton;
         
         private bool _shotgunBought = false;
 
@@ -23,22 +23,22 @@ namespace Game
             if (GameManager.gameState != GameStates.WaveEnded) return;
             GameManager.gameState = GameStates.Break;
             canvasAnimator.SetTrigger("BreakStart");
+            restoreHpButton.SetActive(characterHealth.curHealth < characterHealth.maxHealth);
         }
-
-        public void UpgradeDamage()
+        
+        public void RestoreHp()
         {
-            if (GameManager.money < 100) return;
-            GameManager.money -= 100;
-            characterWeaponControl.curWeapon.damage += 0.7f;
-            restoreHpPrice.SetActive(characterHealth.curHealth < characterHealth.maxHealth);
-        }
-    
-        public void RestoreHP()
-        {
-            if (characterHealth.curHealth < characterHealth.maxHealth && GameManager.money >= 100)
+            if (characterHealth.curHealth < characterHealth.maxHealth && GameManager.money >= 300)
             {
-                characterHealth.curHealth = (characterHealth.curHealth + 10) % 110;
-                GameManager.money -= 100;
+                var newHp = characterHealth.curHealth + 10;
+                if (newHp > 100)
+                    characterHealth.curHealth = 100;
+                else
+                {
+                    characterHealth.curHealth = newHp;
+                }
+
+                GameManager.money -= 300;
             }
         }
     

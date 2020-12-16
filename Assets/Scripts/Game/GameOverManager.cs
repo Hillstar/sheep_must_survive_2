@@ -7,7 +7,7 @@ namespace Game
     public class GameOverManager : MonoBehaviour 
     {
         public AudioSource audioS;
-        public EnemySpawner wavesManager;
+        public EnemySpawner enemySpawner;
         public Button retryBut;
         public Button goMenuBut;
 
@@ -27,8 +27,8 @@ namespace Game
             if(!_gameStopped && GameManager.gameState == GameStates.GameOver)
             {
                 _gameStopped = true;
-                if(wavesManager.numWaves > PlayerPrefs.GetInt("Highscore"))
-                    PlayerPrefs.SetInt("Highscore", wavesManager.numWaves);
+                if(enemySpawner.numWaves > PlayerPrefs.GetInt("Highscore"))
+                    PlayerPrefs.SetInt("Highscore", enemySpawner.numWaves);
                 _anim.SetTrigger("GameOver");
 
                 retryBut.gameObject.SetActive(true);
