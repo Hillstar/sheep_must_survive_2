@@ -24,7 +24,7 @@ namespace Menu
         {
             FirstStart();
         
-            Instantiate(themes[0], themes[0].transform.position, Quaternion.identity);
+            //Instantiate(themes[0], themes[0].transform.position, Quaternion.identity);
             /*
             //Vector3 newPos = new Vector3(0f, 0f, 0f);
             switch (PlayerPrefs.GetInt("CurrentTheme"))
@@ -44,8 +44,8 @@ namespace Menu
             */
 
             // ставим перса в главном меню
-            var newPos = new Vector3(-1.9f, -4.11f, 0f);
-            Instantiate(menuCharacters[PlayerPrefs.GetInt("CurrentChar")], newPos, Quaternion.identity);
+            //var newPos = new Vector3(-1.9f, -4.11f, 0f);
+            //Instantiate(menuCharacters[PlayerPrefs.GetInt("CurrentChar")], newPos, Quaternion.identity);
         }
 
         private void Start()

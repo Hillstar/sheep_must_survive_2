@@ -61,6 +61,8 @@ namespace Game.Enemy
                 _criticalDeath = true;
                 GameManager.money += 100;
                 EnemySpawner.deadEnemiesCounter++;
+                if(_dropSheepAfterDeath)
+                    Instantiate(sheepToDrop, transform.position, Quaternion.identity);
                 Die();
             }
             else
