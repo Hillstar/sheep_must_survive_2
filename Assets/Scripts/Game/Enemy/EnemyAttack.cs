@@ -46,7 +46,7 @@ namespace Game.Enemy
             }
             else if(enemyBehaviour.curState == EnemyStates.Attacking)
             {
-                enemyBehaviour.SwitchState(EnemyStates.ChaseSheep);
+                enemyBehaviour.SwitchState(EnemyStates.ChasePlayer);
             }
         }
         

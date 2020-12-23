@@ -17,6 +17,8 @@ namespace Game
         public GameObject restoreHpButton;
         
         private bool _shotgunBought = false;
+        private bool _rifleBought = false;
+        private bool _laserBought = false;
 
         private void Update()
         {
@@ -31,8 +33,8 @@ namespace Game
             if (characterHealth.curHealth < characterHealth.maxHealth && GameManager.money >= 300)
             {
                 var newHp = characterHealth.curHealth + 10;
-                if (newHp > 100)
-                    characterHealth.curHealth = 100;
+                if (newHp > 50)
+                    characterHealth.curHealth = 50;
                 else
                 {
                     characterHealth.curHealth = newHp;
@@ -49,10 +51,10 @@ namespace Game
     
         public void SelectShotgun()
         {
-            if (!_shotgunBought && GameManager.money >= 1000)
+            if (!_shotgunBought && GameManager.money >= 700)
             {
                 _shotgunBought = true;
-                GameManager.money -= 1000;
+                GameManager.money -= 700;
                 shotgunPrice.gameObject.SetActive(false);
             }
             
@@ -62,27 +64,27 @@ namespace Game
         
         public void SelectRifle()
         {
-            if (!_shotgunBought && GameManager.money >= 2000)
+            if (!_rifleBought && GameManager.money >= 2000)
             {
-                _shotgunBought = true;
+                _rifleBought = true;
                 GameManager.money -= 2000;
                 riflePrice.gameObject.SetActive(false);
             }
             
-            if(_shotgunBought)
+            if(_rifleBought)
                 characterWeaponControl.SelectWeapon(WeaponTypes.Rifle);
         }
         
         public void SelectLaser()
         {
-            if (!_shotgunBought && GameManager.money >= 3000)
+            if (!_laserBought && GameManager.money >= 3000)
             {
-                _shotgunBought = true;
+                _laserBought = true;
                 GameManager.money -= 3000;
                 laserPrice.gameObject.SetActive(false);
             }
             
-            if(_shotgunBought)
+            if(_laserBought)
                 characterWeaponControl.SelectWeapon(WeaponTypes.Laser);
         }
 

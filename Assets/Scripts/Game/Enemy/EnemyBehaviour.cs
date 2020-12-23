@@ -6,6 +6,7 @@ namespace Game.Enemy
     public class EnemyBehaviour : MonoBehaviour
     {
         public EnemyStates curState;
+        public bool attackPriority;
         
         private Transform _targetTransform;
         private GameObject[] _exitPoints;
@@ -22,7 +23,10 @@ namespace Game.Enemy
             _exitPoints = GameObject.FindGameObjectsWithTag("EnemyExitPoint");
             _animator = GetComponent<Animator>();
             _enemyMovement = GetComponent<EnemyMovement>();
-            SwitchState(EnemyStates.ChaseSheep);
+            if(attackPriority)
+                SwitchState(EnemyStates.ChasePlayer);
+            else
+                SwitchState(EnemyStates.ChaseSheep);
             //_sheepObjects = GameObject.FindGameObjectsWithTag("Sheep");
         }
         
@@ -99,10 +103,11 @@ namespace Game.Enemy
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if(other.gameObject.CompareTag("Sheep") 
+            if(other.gameObject.CompareTag("Sheep") && !attackPriority
                 && curState != EnemyStates.CarrySheep && curState != EnemyStates.Dead)
             {
                 SwitchState(EnemyStates.CarrySheep);
+                other.gameObject.GetComponent<Sheep>().Bleat();
                 Destroy(other.gameObject);
                 //Debug.LogError(_curState);
             }

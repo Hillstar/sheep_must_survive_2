@@ -252,7 +252,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curState: 0
-  attackPriority: 1
 --- !u!114 &1591965852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b1654c5c0736f4bba15fa73c63871b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  maxHealth: 3
   sheepToDrop: {fileID: 1423274335198632, guid: b506a05c3c3c8eb4dbfc993702f16751, type: 3}
   deathExplosion: {fileID: 1419947142867302, guid: 9a9557dd0d9cb8f4f8a9896fde6a2e0f, type: 3}
   criticalExplosion: {fileID: 1419947142867302, guid: fd4b0989b07bc344d8cb79bb2b6469ab, type: 3}
@@ -296,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47322e1967ab5c43af7759e17dee1de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeedMax: 2.75
+  movementSpeedMax: 3
 --- !u!1 &1765386816173558520
 GameObject:
   m_ObjectHideFlags: 0

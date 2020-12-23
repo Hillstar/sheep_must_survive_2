@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Character
@@ -20,7 +22,7 @@ namespace Game.Character
             shotgunGameObject.SetActive(false);
             rifleGameObject.SetActive(false);
             laserGameObject.SetActive(false);
-            SelectWeapon(WeaponTypes.Rifle);
+            SelectWeapon(WeaponTypes.Pistol);
         }
 
         private void Update()
@@ -29,7 +31,7 @@ namespace Game.Character
 #if UNITY_EDITOR || UNITY_STANDALONE
             if(Input.GetMouseButton(0) && Time.time >= _timeToShoot)
             {
-                curWeapon.Shoot();
+                StartCoroutine(WaitAndShoot());
                 _timeToShoot = Time.time + curWeapon.shootingDelay;
             }
             // Weapon rotating
@@ -39,8 +41,8 @@ namespace Game.Character
             var dir = new Vector2(joystick.Horizontal, joystick.Vertical).normalized;
             if(dir != Vector2.zero && Time.time >= _timeToShoot)
             {
-                curWeapon.Shoot();
-                _timeToShoot = Time.time + shootingDelay;
+                StartCoroutine(WaitAndShoot());
+                _timeToShoot = Time.time + curWeapon.shootingDelay;
             }
 #endif
             
@@ -76,6 +78,12 @@ namespace Game.Character
                 default:
                     throw new ArgumentOutOfRangeException(nameof(weapon), weapon, null);
             }
+        }
+        
+        private IEnumerator WaitAndShoot()
+        {
+            yield return new WaitForSeconds(0.05f);
+            curWeapon.Shoot();
         }
     }
 }

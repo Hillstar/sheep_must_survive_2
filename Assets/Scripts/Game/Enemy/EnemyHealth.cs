@@ -61,6 +61,8 @@ namespace Game.Enemy
                 _criticalDeath = true;
                 GameManager.money += 100;
                 EnemySpawner.deadEnemiesCounter++;
+                _curHealth = 0;
+                _enemyBehaviour.SwitchState(EnemyStates.Dead);
                 if(_dropSheepAfterDeath)
                     Instantiate(sheepToDrop, transform.position, Quaternion.identity);
                 Die();
